@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,17 +8,17 @@ using UnityEngine.UI;
 
 public class ADXSoundManager: IDisposable
 {
-    // ExPlayer‚ğŠÇ—‚·‚é•Ï”
+    // ExPlayerã‚’ç®¡ç†ã™ã‚‹å¤‰æ•°
     private Dictionary<string, MyExPlayer> _exPlayers;
     private CriAtomEx3dListener _ex3dListener;    // ExListener
     private Transform _transform;
 
     // ========================================================================================
-    // ADXSoundManager‚ğƒVƒ“ƒOƒ‹ƒgƒ“‚Æ‚·‚é‚½‚ß‚Ì‹Lq
+    // ADXSoundManagerã‚’ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã¨ã™ã‚‹ãŸã‚ã®è¨˜è¿°
 
     private static ADXSoundManager _instance;
 
-    // ADXSoundManager.Instance‚Æ‚¢‚¤‹Lq‚ÅA‚Ç‚±‚©‚ç‚Å‚àADXSoundManager‚ÉƒAƒNƒZƒX‰Â”\
+    // ADXSoundManager.Instanceã¨ã„ã†è¨˜è¿°ã§ã€ã©ã“ã‹ã‚‰ã§ã‚‚ADXSoundManagerã«ã‚¢ã‚¯ã‚»ã‚¹å¯èƒ½
     public static ADXSoundManager Instance
     {
         get
@@ -31,33 +31,33 @@ public class ADXSoundManager: IDisposable
         }
     }
 
-    // ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ğƒvƒ‰ƒCƒx[ƒg‚É‚µ‚ÄŠO•”‚©‚ç‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‰»‚ğ–h‚®
+    // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚’ãƒ—ãƒ©ã‚¤ãƒ™ãƒ¼ãƒˆã«ã—ã¦å¤–éƒ¨ã‹ã‚‰ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã‚’é˜²ã
     private ADXSoundManager()
     {
         _exPlayers = new Dictionary<string, MyExPlayer>();
         _ex3dListener = new CriAtomEx3dListener();
 
         // --------------------------------------------------------------------------------
-        // ADXSoundManager‚Å•K—v‚È‰Šú‰»ƒR[ƒh‚ª‚ ‚ê‚Î“K‹X‚±‚±‚ÌƒR[ƒhƒuƒƒbƒN‚É‘‚­‚Æ‚æ‚¢
+        // ADXSoundManagerã§å¿…è¦ãªåˆæœŸåŒ–ã‚³ãƒ¼ãƒ‰ãŒã‚ã‚Œã°é©å®œã“ã“ã®ã‚³ãƒ¼ãƒ‰ãƒ–ãƒ­ãƒƒã‚¯ã«æ›¸ãã¨ã‚ˆã„
         //
         // int myFavoriteThings = 100;
         // myFavoriteThings += 10;
         // --------------------------------------------------------------------------------
     }
-    // ADXSoundManager‚ÌƒVƒ“ƒOƒ‹ƒgƒ“‚Ì‹Lq‚Í‚±‚±‚Ü‚Å
+    // ADXSoundManagerã®ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã®è¨˜è¿°ã¯ã“ã“ã¾ã§
     // ========================================================================================
 
-    // ƒŠƒ\[ƒX‚Ì”jŠü
+    // ãƒªã‚½ãƒ¼ã‚¹ã®ç ´æ£„
     public void Dispose()
     {
-        // ‚·‚×‚Ä‚ÌexPlayer‚ğ”jŠü
+        // ã™ã¹ã¦ã®exPlayerã‚’ç ´æ£„
         foreach (var exPlayer in _exPlayers.Values)
         {
             exPlayer.Dispose();
         }
         _exPlayers.Clear();
 
-        // Ex3dListener‚Ì”jŠü
+        // Ex3dListenerã®ç ´æ£„
         _ex3dListener.Dispose();
 
         GC.SuppressFinalize(this);
@@ -76,7 +76,7 @@ public class ADXSoundManager: IDisposable
     {
         if (!_exPlayers.ContainsKey(key))
         {
-            // key‚É‘Î‰‚·‚é–¼‘O‚ÌExPlayer‚ª‚Ü‚¾‘¶İ‚µ‚È‚¢‚È‚çì‚é
+            // keyã«å¯¾å¿œã™ã‚‹åå‰ã®ExPlayerãŒã¾ã å­˜åœ¨ã—ãªã„ãªã‚‰ä½œã‚‹
             _exPlayers[key] = new MyExPlayer();
         }
 
@@ -92,7 +92,7 @@ public class ADXSoundManager: IDisposable
         else { return null; }
     }
 
-    //ƒLƒ…[‚Ì–¼‘O‚©‚ç
+    //ã‚­ãƒ¥ãƒ¼ã®åå‰ã‹ã‚‰
     public void PlaySound(string key, CriAtomExAcb cueSheet, string cueName, Transform transform, bool is3D)
     {
         MyExPlayer exPlayer = GetOrCreateExPlayer(key);
@@ -100,7 +100,7 @@ public class ADXSoundManager: IDisposable
         exPlayer.Play(cueSheet, cueName, is3D);
     }
 
-    //ƒLƒ…[ID‚©‚ç
+    //ã‚­ãƒ¥ãƒ¼IDã‹ã‚‰
     public void PlaySound(string key, CriAtomExAcb cueSheet, int cueId, Transform transform, bool is3D)
     {
         MyExPlayer exPlayer = GetOrCreateExPlayer(key);
@@ -135,8 +135,8 @@ public class ADXSoundManager: IDisposable
 
     #region 3DPositioning
 
-    // exPlayer‚Æ•R‚Ã‚¢‚Ä‚¢‚éex3dSource‚Ìƒ|ƒWƒVƒ‡ƒ“‚ğƒAƒbƒvƒf[ƒg‚·‚éŠÖ”
-    // —á‚¦‚ÎGameObejct‘¤‚ÌUpdate()‚Å‚±‚ÌADXSoundManager.Instance.UpdateSoundPosition()‚Æ‚¢‚¤‹Lq‚ÅXV‚·‚é
+    // exPlayerã¨ç´ã¥ã„ã¦ã„ã‚‹ex3dSourceã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã™ã‚‹é–¢æ•°
+    // ä¾‹ãˆã°GameObejctå´ã®Update()ã§ã“ã®ADXSoundManager.Instance.UpdateSoundPosition()ã¨ã„ã†è¨˜è¿°ã§æ›´æ–°ã™ã‚‹
     public void UpdateSoundPosition(string key)
     {
         if (_exPlayers.TryGetValue(key, out MyExPlayer exPlayer))
@@ -145,13 +145,13 @@ public class ADXSoundManager: IDisposable
         }
     }
 
-    // ƒŠƒXƒi[‚Æ‚µ‚Äg—p‚·‚éTransform‚ğİ’è(ƒJƒƒ‰‚âƒLƒƒƒ‰ƒNƒ^[‚È‚Ç)
+    // ãƒªã‚¹ãƒŠãƒ¼ã¨ã—ã¦ä½¿ç”¨ã™ã‚‹Transformã‚’è¨­å®š(ã‚«ãƒ¡ãƒ©ã‚„ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãªã©)
     public void SetListenerTransform(Transform transform)
     {
         _transform = transform;
     }
 
-    // •R‚Ã‚¢‚Ä‚¢‚éGameObject‚ÌUpdate()‚Å‚±‚Ìƒ|ƒWƒVƒ‡ƒ“‚ÌXV‚ğŒÄ‚Ô
+    // ç´ã¥ã„ã¦ã„ã‚‹GameObjectã®Update()ã§ã“ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®æ›´æ–°ã‚’å‘¼ã¶
     public void UpdateListenerPosition()
     {
         if (_transform != null)
@@ -188,18 +188,18 @@ public class ADXSoundManager: IDisposable
 
 
     // ========================================================================================
-    // ‚±‚±‚©‚çMyExPlayerƒNƒ‰ƒX‚Ì‹Lq
+    // ã“ã“ã‹ã‚‰MyExPlayerã‚¯ãƒ©ã‚¹ã®è¨˜è¿°
 
-    // MyExPlayerƒNƒ‰ƒX‚ğADXSoundManager‚ğ‰î‚³‚¸‚ÉG‚ê‚È‚¢‚æ‚¤‚Éprivate‚É‚·‚éB(“à•”ƒNƒ‰ƒX‚Æ‚µ‚Ä’è‹`‚·‚é)
+    // MyExPlayerã‚¯ãƒ©ã‚¹ã‚’ADXSoundManagerã‚’ä»‹ã•ãšã«è§¦ã‚Œãªã„ã‚ˆã†ã«privateã«ã™ã‚‹ã€‚(å†…éƒ¨ã‚¯ãƒ©ã‚¹ã¨ã—ã¦å®šç¾©ã™ã‚‹)
     private class MyExPlayer
     {
         private CriAtomExPlayer _exPlayer;
         private CriAtomEx3dSource _ex3dSource;
 
-        // ‰¹Œ¹‚Æ‚È‚éGameObject‚ÌÀ•W
+        // éŸ³æºã¨ãªã‚‹GameObjectã®åº§æ¨™
         private Transform _transform;
 
-        // ƒRƒ“ƒXƒgƒ‰ƒNƒ^. Unity‚Å‚¢‚¤Awake()‚âStart()‚Æ‹ß‚¢A‰Šú‰»ˆ—
+        // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿. Unityã§ã„ã†Awake()ã‚„Start()ã¨è¿‘ã„ã€åˆæœŸåŒ–å‡¦ç†
         public MyExPlayer()
         {
             _exPlayer = new CriAtomExPlayer();
@@ -227,16 +227,16 @@ public class ADXSoundManager: IDisposable
                 _ex3dSource.Update();
             }
 
-            // Ä¶
+            // å†ç”Ÿ
             _exPlayer.Start();
 
             // ---------------------------------------------------------------------------------------------
-            // ƒuƒƒbƒNÄ¶‚Í_exPlayer.Start();‚Ì•Ô‚è’l‚Å‚ ‚éCriAtomExPlayback‚ğ‰î‚µ‚ÄA
+            // ãƒ–ãƒ­ãƒƒã‚¯å†ç”Ÿã¯_exPlayer.Start();ã®è¿”ã‚Šå€¤ã§ã‚ã‚‹CriAtomExPlaybackã‚’ä»‹ã—ã¦ã€
             // exPlayback.SetNextBlockIndex(10);
-            // ‚Æ‚¢‚Á‚½‚æ‚¤‚Ég—p‚·‚é‚½‚ßA•K—v‚Å‚ ‚ê‚Î“K‹XexPlayback‚ğg—p‚·‚é‚Æ—Ç‚¢B
-            // ‚Ü‚½AƒAƒNƒVƒ‡ƒ“‹@”\‚ÌƒuƒƒbƒN‘JˆÚæw’èƒAƒNƒVƒ‡ƒ“‚ğg‚¦‚ÎAexPlayback‚Í•s—v
+            // ã¨ã„ã£ãŸã‚ˆã†ã«ä½¿ç”¨ã™ã‚‹ãŸã‚ã€å¿…è¦ã§ã‚ã‚Œã°é©å®œexPlaybackã‚’ä½¿ç”¨ã™ã‚‹ã¨è‰¯ã„ã€‚
+            // ã¾ãŸã€ã‚¢ã‚¯ã‚·ãƒ§ãƒ³æ©Ÿèƒ½ã®ãƒ–ãƒ­ãƒƒã‚¯é·ç§»å…ˆæŒ‡å®šã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’ä½¿ãˆã°ã€exPlaybackã¯ä¸è¦
             //
-            // ExPlayback‚ğg—p‚µ‚½‚¢ê‡‚ÍAŠÖ”‚Ì•Ô‚è’l‚ÌŒ^‚Æ‚Æ‚à‚ÉAˆÈ‰º‚Ì‚æ‚¤‚É‘‚«Š·‚¦‚é‚Æ‚æ‚¢B
+            // ExPlaybackã‚’ä½¿ç”¨ã—ãŸã„å ´åˆã¯ã€é–¢æ•°ã®è¿”ã‚Šå€¤ã®å‹ã¨ã¨ã‚‚ã«ã€ä»¥ä¸‹ã®ã‚ˆã†ã«æ›¸ãæ›ãˆã‚‹ã¨ã‚ˆã„ã€‚
             // CriAtomExPlayback exPlayback = criAtomExPlayer.Start();
             // return exPlayback;
             // ---------------------------------------------------------------------------------------------
@@ -253,7 +253,7 @@ public class ADXSoundManager: IDisposable
                 _ex3dSource.Update();
             }
 
-            // Ä¶
+            // å†ç”Ÿ
             _exPlayer.Start();
         }
 

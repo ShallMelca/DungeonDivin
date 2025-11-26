@@ -1,4 +1,4 @@
-using CriWare;
+Ôªøusing CriWare;
 using CriWare.Assets;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,43 +7,43 @@ using UnityEngine.SceneManagement;
 
 public class TitleScript : MonoBehaviour
 {
-    [SerializeField] private Canvas HowtoCanvas;
-    [SerializeField] private Canvas ConfigCanvas;
+    [SerializeField] private Canvas howtoCanvas;
+    [SerializeField] private Canvas configCanvas;
     [SerializeField] private List<string> sceneName = new List<string>(4);
-    [SerializeField] CriWare.Assets.CriAtomCueReference CueRefarence;
+    [SerializeField] CriWare.Assets.CriAtomCueReference cueRefarence;
 
     private void Awake()
     {
         //HowtoCanvas.enabled = false;
-        ConfigCanvas.enabled = false;
+        configCanvas.enabled = false;
     }
 
-    public void _Button_GameStart()
+    public void Button_GameStart()
     {
         UIClick();
         ADXSoundManager.Instance.Dispose();
         SceneManager.LoadScene(sceneName[0]);
     }
-    public void _Button_Quit()
+    public void Button_Quit()
     {
         ADXSoundManager.Instance.Dispose();
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;//ÉQÅ[ÉÄÉvÉåÉCèIóπ
+        UnityEditor.EditorApplication.isPlaying = false;//„Ç≤„Éº„É†„Éó„É¨„Ç§ÁµÇ‰∫Ü
 #else
-        Application.Quit();//ÉQÅ[ÉÄÉvÉåÉCèIóπ
+        Application.Quit();//„Ç≤„Éº„É†„Éó„É¨„Ç§ÁµÇ‰∫Ü
 #endif
     }
 
-    public void _Howto_Pless(string name)
+    public void Howto_Pless(string name)
     {
         UIClick();
         switch (name)
         {
             case "on":
-                HowtoCanvas.enabled = true;
+                howtoCanvas.enabled = true;
                 break;
             case "off":
-                HowtoCanvas.enabled = false;
+                howtoCanvas.enabled = false;
                 break;
         }
     }
@@ -51,12 +51,12 @@ public class TitleScript : MonoBehaviour
     public void OpenConfig()
     {
         UIClick();
-        ConfigCanvas.enabled = true;
+        configCanvas.enabled = true;
     }
 
-    // âπ
+    // Èü≥
     private void UIClick()
     {
-        ADXSoundManager.Instance.PlaySound("UI", CueRefarence.AcbAsset.Handle, 000, null, false);
+        ADXSoundManager.Instance.PlaySound("UI", cueRefarence.AcbAsset.Handle, 000, null, false);
     }
 }

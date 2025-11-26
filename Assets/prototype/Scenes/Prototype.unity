@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -133,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2792320}
   m_Layer: 0
-  m_Name: Kavvvvvve
+  m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1757,14 +1756,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02890b8a8e4ab644aabfd80e11a5c911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisImg: {fileID: 323302377}
-  Abilityimg:
-  - {fileID: 139253487067715258, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -3101709958588493406, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: 2513499889525768383, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: 6914502730269018572, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -1142242441773268981, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -6211117690337399061, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
+  thisImg: {fileID: 0}
+  abilityimg: []
 --- !u!1 &363604592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,14 +1846,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02890b8a8e4ab644aabfd80e11a5c911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisImg: {fileID: 363604594}
-  Abilityimg:
-  - {fileID: 139253487067715258, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -3101709958588493406, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: 2513499889525768383, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: 6914502730269018572, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -1142242441773268981, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -6211117690337399061, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
+  thisImg: {fileID: 0}
+  abilityimg: []
 --- !u!1 &366413139
 GameObject:
   m_ObjectHideFlags: 0
@@ -4589,6 +4576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 826466578}
   - component: {fileID: 826466579}
+  - component: {fileID: 826466580}
   m_Layer: 0
   m_Name: ButtonController
   m_TagString: Untagged
@@ -4623,12 +4611,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e0c396b314fd246848f268942397d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PauseCanvas: {fileID: 376538864}
-  ConfigCanvas: {fileID: 2146609082}
+  pauseCanvas: {fileID: 0}
+  configCanvas: {fileID: 0}
   CueRefarence:
     acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
     cueId: 0
-  Ctrl: {fileID: 1341798987}
+  ctrl: {fileID: 0}
+--- !u!114 &826466580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826466577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f529b252405514a80007ccc0ed3866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plScript: {fileID: 1895228024}
+  enable: {fileID: 1127919831}
+  destroyBool: 0
+  changeText: {fileID: 175445184}
+  CueRefarence:
+    acbAsset: {fileID: 0}
+    cueId: 0
 --- !u!1 &848825851
 GameObject:
   m_ObjectHideFlags: 0
@@ -5678,9 +5685,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1cac20dc5be9448ad602c976871a28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGMSlider: {fileID: 1934163802}
-  SESlider: {fileID: 1030228203}
-  ConfigCanvas: {fileID: 2146609082}
+  bgmSlider: {fileID: 0}
+  seSlider: {fileID: 0}
+  configCanvas: {fileID: 0}
   CueRefarence:
     acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
     cueId: 0
@@ -5691,12 +5698,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975262498}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2146609083}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6029,7 +6036,7 @@ GameObject:
   - component: {fileID: 1083633951}
   - component: {fileID: 1083633954}
   m_Layer: 5
-  m_Name: Ability.2
+  m_Name: ChooseAbility.2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6163,29 +6170,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56ee27282a5b184e91a9fec5bcd6cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Title: {fileID: 760202396}
-  Description: {fileID: 1430790507}
-  ThisSprite: {fileID: 787994900}
-  AbilityDescriptions:
-  - "\u8EAB\u4F53\u306B\u3068\u3052\u304C\u751F\u3048\u308B\u3002\n\u6575\u306B{thone}\u30C0\u30E1\u30FC\u30B8\u306E\u53CD\u6483"
-  - "\u56DE\u5FA9\u80FD\u529B\u304C\u9AD8\u307E\u308B\u3002\n\u6BCE\u30BF\u30FC\u30F3HP{CurePoint}\u56DE\u5FA9"
-  - "\u9B54\u529B\u306B\u3088\u308A\u9069\u5408\u3057\u305F\u3002\nMP\u306E\u4E0A\u9650+20"
-  - "\u9006\u5883\u3067\u3067\u3053\u305D\u8F1D\u304F\u3002\nHP\u306E\u5272\u5408\u306B\u5FDC\u3058\u3066\u653B\u6483\u529B\u5897\u52A0"
-  - "\u72ED\u3044\u7A7A\u9593\u3067\u3082\u56DE\u907F\u3067\u304D\u308B\u3002\n{AvoidPercent}%\u3067\u653B\u6483\u3092\u56DE\u907F"
-  - "\u6575\u306E\u8840\u3067\u50B7\u304C\u6CBB\u308B\u3002\n\u6575\u3092\u5012\u3059\u3068HP\u56DE\u5FA9"
-  AbilitySprites:
-  - {fileID: 139253487067715258, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -3101709958588493406, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: 2513499889525768383, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: 6914502730269018572, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -1142242441773268981, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -6211117690337399061, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  ThisButtonRole: Add_AttackPow
-  AftAbilityMAX_Text: "\u57FA\u790E\u653B\u6483\u529B+1"
-  AftAbilityMAX_Sprite: {fileID: -8572855146616864485, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  PLScript: {fileID: 1895228024}
-  CueRefarence:
-    acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+  abilityName: {fileID: 0}
+  description: {fileID: 0}
+  abilitySprite: {fileID: 0}
+  abilityDescriptions: []
+  abilitySprites: []
+  thisButtonRole: 
+  abilityMAX_Text: 
+  abilityMAX_Sprite: {fileID: 0}
+  PLScript: {fileID: 0}
+  cueRefarence:
+    acbAsset: {fileID: 0}
     cueId: 0
 --- !u!1 &1119683173
 GameObject:
@@ -6352,12 +6347,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac2b9478ed3121439fc2ac566682b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ctrl: {fileID: 1341798987}
-  PlScript: {fileID: 1895228024}
-  Encount: 0
+  ctrl: {fileID: 0}
+  plScript: {fileID: 0}
+  encount: 0
   count: 0
-  EnableEnemies: []
-  AllEnemies: []
+  enableEnemies: []
+  allEnemies: []
 --- !u!1 &1146081393
 GameObject:
   m_ObjectHideFlags: 0
@@ -7059,12 +7054,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98438ab0add1f70468fd6400d2932fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Game: 0
+  game: 0
   turn: 0
   score: 0
-  PLScript: {fileID: 1895228024}
-  Enab: {fileID: 1127919831}
-  Lim:
+  playerScript: {fileID: 0}
+  Enable: {fileID: 1127919831}
+  Limits:
   - {fileID: 697536639310666766}
   - {fileID: 697536639716790061}
   - {fileID: 697536640160655824}
@@ -7072,34 +7067,34 @@ MonoBehaviour:
   - {fileID: 697536639659277983}
   - {fileID: 697536640382226188}
   - {fileID: 697536639908631543}
-  Puz:
+  puzzles:
   - {fileID: 3565197023122609166, guid: 83d4977b6e0393847bd3cba5a86d4b7c, type: 3}
   - {fileID: 7159341445378295562, guid: b0b03d598d2047c47b213ce47c206d40, type: 3}
   - {fileID: 9191166948351637827, guid: ddf07e59749642f46ab09a8e28c0a251, type: 3}
-  Enempuz: {fileID: 1209864168030248042, guid: bcf5efdd41a87494099eedb2be29c645, type: 3}
-  PuzSize_Min: 4
-  PuzSize_Max: 5
-  PuzDistance: 8
-  PopText: {fileID: 850227337}
-  TurnPoint: {fileID: 542832139}
-  Last_Score: {fileID: 1494784157}
-  Last_Turn: {fileID: 1866942005}
-  Last_Level: {fileID: 1833673746}
-  fail: {fileID: 418328787}
-  Loading: {fileID: 958752865}
-  PuzzleLine: {fileID: 194866384}
-  CueRef_SE:
+  enemyPuzzle: {fileID: 0}
+  puzSize_Min: 3
+  puzSize_Max: 6
+  puzDistance: 6
+  popText: {fileID: 850227337}
+  turnPoint: {fileID: 542832139}
+  last_Score_UI: {fileID: 1494784157}
+  last_Turn_UI: {fileID: 1866942005}
+  last_Level_UI: {fileID: 1833673746}
+  failCanvas: {fileID: 0}
+  loadingCanvas: {fileID: 958752865}
+  puzzleLineCanvas: {fileID: 194866384}
+  cueReference_SE:
     acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
     cueId: 0
-  CueRef_BGM:
+  cueRefernce_BGM:
     acbAsset: {fileID: -6750239444755058063, guid: 505f11649640eec42a106f07d5fb68b9, type: 3}
     cueId: 0
-  Trial_ver: 0
+  trial_ver: 0
   turnlimit: 15
-  ThankPlay: {fileID: 141182176}
-  Last_Score_Trial: {fileID: 2078913159}
-  Last_Turn_Trial: {fileID: 1691231647}
-  Last_Level_Trial: {fileID: 912907909}
+  thankPlay: {fileID: 141182176}
+  last_Score_UI_Trial: {fileID: 2078913159}
+  last_Turn_UI_Trial: {fileID: 1691231647}
+  last_Level_UI_Trial: {fileID: 0}
 --- !u!4 &1341798988
 Transform:
   m_ObjectHideFlags: 0
@@ -9004,7 +8999,6 @@ GameObject:
   - component: {fileID: 1621600380}
   - component: {fileID: 1621600383}
   - component: {fileID: 1621600381}
-  - component: {fileID: 1621600384}
   m_Layer: 5
   m_Name: MagicButton
   m_TagString: Untagged
@@ -9076,9 +9070,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1621600384}
-        m_TargetAssemblyTypeName: Magic, Assembly-CSharp
-        m_MethodName: magic
+      - m_Target: {fileID: 826466580}
+        m_TargetAssemblyTypeName: MagicManager, Assembly-CSharp
+        m_MethodName: Magic
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9096,25 +9090,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621600379}
   m_CullTransparentMesh: 1
---- !u!114 &1621600384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1621600379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50f529b252405514a80007ccc0ed3866, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PL: {fileID: 1895228024}
-  Enab: {fileID: 1127919831}
-  DestroyBool: 0
-  ChangeText: {fileID: 175445184}
-  CueRefarence:
-    acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
-    cueId: 0
 --- !u!1 &1691231645
 GameObject:
   m_ObjectHideFlags: 0
@@ -9470,14 +9445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02890b8a8e4ab644aabfd80e11a5c911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisImg: {fileID: 1710496620}
-  Abilityimg:
-  - {fileID: 139253487067715258, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -3101709958588493406, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: 2513499889525768383, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: 6914502730269018572, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -1142242441773268981, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -6211117690337399061, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
+  thisImg: {fileID: 0}
+  abilityimg: []
 --- !u!1 &1715156078
 GameObject:
   m_ObjectHideFlags: 0
@@ -10879,44 +10848,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10b281e37a6a25e4b8980bb039db02db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PL_Attack: 1
-  Level: 0
-  PLAnim: {fileID: 1160356262538380893}
-  MaxHP: 50
-  HP_Percent: 0
-  HpBar: {fileID: 221344977}
-  HpNow_UI: {fileID: 491789096}
-  HpMax_UI: {fileID: 253117855}
-  MaxMP: 20
-  MpBar: {fileID: 1146081395}
-  MpNow_UI: {fileID: 1989636894}
-  MpMax_UI: {fileID: 628140451}
-  ToNextLevelEXP: 10
-  ExpBar: {fileID: 1349922042}
-  ExpNow_UI: {fileID: 1778297967}
-  ExpMax_UI: {fileID: 258440344}
-  Ctrl: {fileID: 1341798987}
-  Enab: {fileID: 1127919831}
-  AbilityChoiceCanvas: {fileID: 848825854}
-  AbilityButtons:
+  playerAttackPT: 0
+  playerLevel: 0
+  playerAnimator: {fileID: 1160356262538380893}
+  maxHP: 50
+  hpBar: {fileID: 1030228203}
+  hpNow_UI: {fileID: 1778297967}
+  hpMax_UI: {fileID: 253117855}
+  maxMP: 40
+  mpBar: {fileID: 1146081395}
+  mpNow_UI: {fileID: 1989636894}
+  mpMax_UI: {fileID: 628140451}
+  toNextLevelEXP: 0
+  expBar: {fileID: 1349922042}
+  expNow_UI: {fileID: 1778297967}
+  expMax_UI: {fileID: 258440344}
+  ctrl: {fileID: 1341798987}
+  enab: {fileID: 1127919831}
+  abilityChoiceCanvas: {fileID: 848825854}
+  abilityButtons:
   - {fileID: 2018030011}
   - {fileID: 1083633954}
-  AbilityIcon:
+  abilityIcon:
   - {fileID: 323302379}
   - {fileID: 363604596}
   - {fileID: 1710496622}
-  MaxAbilityNum: 3
-  MaxAbilityLevel: 3
-  AbilityDictionary:
-  - Thone
-  - CureBody
-  - AdaptMana
-  - Revenger
-  - Avoiding
-  - Vampire
-  NowAbilities: []
-  AbilitieLevels: 
-  ChoicingAbtDic: []
+  maxAbilityNum: 0
+  maxAbilityLevel: 0
+  abilityDictionary: []
+  nowAbilities: []
+  abilitieLevels: 
+  choicingAbtDic: []
 --- !u!1 &1908956525
 GameObject:
   m_ObjectHideFlags: 0
@@ -11523,7 +11485,7 @@ GameObject:
   - component: {fileID: 2018030008}
   - component: {fileID: 2018030011}
   m_Layer: 5
-  m_Name: Ability.1
+  m_Name: ChooseAbility.1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11657,29 +11619,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56ee27282a5b184e91a9fec5bcd6cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Title: {fileID: 133466832}
-  Description: {fileID: 1201526163}
-  ThisSprite: {fileID: 426606631}
-  AbilityDescriptions:
-  - "\u8EAB\u4F53\u306B\u3068\u3052\u304C\u751F\u3048\u308B\u3002\n\u6575\u306B{thone}\u30C0\u30E1\u30FC\u30B8\u306E\u53CD\u6483"
-  - "\u56DE\u5FA9\u80FD\u529B\u304C\u9AD8\u307E\u308B\u3002\n\u6BCE\u30BF\u30FC\u30F3HP{CurePoint}\u56DE\u5FA9"
-  - "\u9B54\u529B\u306B\u3088\u308A\u9069\u5408\u3057\u305F\u3002\nMP\u306E\u4E0A\u9650+20"
-  - "\u9006\u5883\u3067\u3067\u3053\u305D\u8F1D\u304F\u3002\nHP\u306E\u5272\u5408\u306B\u5FDC\u3058\u3066\u653B\u6483\u529B\u5897\u52A0"
-  - "\u72ED\u3044\u7A7A\u9593\u3067\u3082\u56DE\u907F\u3067\u304D\u308B\u3002\n{AvoidPercent}%\u3067\u653B\u6483\u3092\u56DE\u907F"
-  - "\u6575\u306E\u8840\u3067\u50B7\u304C\u6CBB\u308B\u3002\n\u6575\u3092\u5012\u3059\u3068HP\u56DE\u5FA9"
-  AbilitySprites:
-  - {fileID: 139253487067715258, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -3101709958588493406, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: 2513499889525768383, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: 6914502730269018572, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -1142242441773268981, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  - {fileID: -6211117690337399061, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  ThisButtonRole: Add_HP
-  AftAbilityMAX_Text: HP+5
-  AftAbilityMAX_Sprite: {fileID: -574357649810062866, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  PLScript: {fileID: 1895228024}
-  CueRefarence:
-    acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+  abilityName: {fileID: 0}
+  description: {fileID: 0}
+  abilitySprite: {fileID: 0}
+  abilityDescriptions: []
+  abilitySprites: []
+  thisButtonRole: 
+  abilityMAX_Text: 
+  abilityMAX_Sprite: {fileID: 0}
+  PLScript: {fileID: 0}
+  cueRefarence:
+    acbAsset: {fileID: 0}
     cueId: 0
 --- !u!1 &2046179109
 GameObject:
@@ -12297,7 +12247,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 975262500}
   - {fileID: 516819495}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12633,7 +12582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15cd3d68a65167448a31a78ccd18a87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ctrl: {fileID: 1341798987}
+  ctrl: {fileID: 0}
 --- !u!114 &697536639310666766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12646,7 +12595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15cd3d68a65167448a31a78ccd18a87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ctrl: {fileID: 1341798987}
+  ctrl: {fileID: 0}
 --- !u!114 &697536639659277983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12659,7 +12608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15cd3d68a65167448a31a78ccd18a87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ctrl: {fileID: 1341798987}
+  ctrl: {fileID: 0}
 --- !u!114 &697536639716790061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12672,7 +12621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15cd3d68a65167448a31a78ccd18a87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ctrl: {fileID: 1341798987}
+  ctrl: {fileID: 0}
 --- !u!114 &697536639908631543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12685,7 +12634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15cd3d68a65167448a31a78ccd18a87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ctrl: {fileID: 1341798987}
+  ctrl: {fileID: 0}
 --- !u!114 &697536640160655824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12698,7 +12647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15cd3d68a65167448a31a78ccd18a87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ctrl: {fileID: 1341798987}
+  ctrl: {fileID: 0}
 --- !u!114 &697536640382226188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12711,7 +12660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15cd3d68a65167448a31a78ccd18a87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ctrl: {fileID: 1341798987}
+  ctrl: {fileID: 0}
 --- !u!212 &788345093460204324
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13625,6 +13574,7 @@ SceneRoots:
   - {fileID: 1341798988}
   - {fileID: 1895228023}
   - {fileID: 826466578}
+  - {fileID: 975262500}
   - {fileID: 2792320}
   - {fileID: 1014060031}
   - {fileID: 1127919830}
