@@ -1,4 +1,4 @@
-using CriWare;
+ï»¿using CriWare;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,324 +6,338 @@ using UnityEngine.UI;
 
 public class Controller : MonoBehaviour
 {
-    //GameManager•Ó‚è‚É“ü‚Á‚Ä‚é“Š‡ƒXƒNƒŠƒvƒg
+    //GameManagerè¾ºã‚Šã«å…¥ã£ã¦ã‚‹çµ±æ‹¬ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 
     [Header("System")]
-    public bool Game;   //ƒQ[ƒ€‚»‚Ì‚à‚Ì‚Ìƒu[ƒŠƒAƒ“@‚±‚ê‚ªfalse‚¾‚Æ‘S‚Ä‚ª~‚Ü‚éA‚Í‚¸B
+    public bool game;   //ã‚²ãƒ¼ãƒ ãã®ã‚‚ã®ã®ãƒ–ãƒ¼ãƒªã‚¢ãƒ³ã€€ã“ã‚ŒãŒfalseã ã¨å…¨ã¦ãŒæ­¢ã¾ã‚‹
     [SerializeField] private int turn;
     [SerializeField] public int score;
-    [SerializeField] private PlayerScript PLScript;
-    [SerializeField] private Enable Enab;
+    [SerializeField] private PlayerScript playerScript;
+    [SerializeField] private Enable Enable;
 
     [Header("GameObject")]
-    [SerializeField] private LimSc[] Lim = new LimSc[7];    //ƒpƒYƒ‹•â‹‹‚Ì‚½‚ß‚ÌƒIƒuƒWƒFƒNƒg
-    [SerializeField] private GameObject[] Puz;              //¢Š«‚·‚éƒpƒYƒ‹•¨‘Ì‚»‚Ì‚à‚Ì‚ğ“ü‚ê‚é•Ï”
-    [SerializeField] private EnemSc Enempuz;
-    [SerializeField] private float PuzSize_Min;
-    [SerializeField] private float PuzSize_Max;
-    [SerializeField] private float PuzDistance;
+    [SerializeField] private LimSc[] Limits = new LimSc[7];    //ãƒ‘ã‚ºãƒ«è£œçµ¦ã®ãŸã‚ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    [SerializeField] private GameObject[] puzzles;              //å¬å–šã™ã‚‹ãƒ‘ã‚ºãƒ«ç‰©ä½“ãã®ã‚‚ã®ã‚’å…¥ã‚Œã‚‹å¤‰æ•°
+    [SerializeField] private EnemSc enemyPuzzle;
+    [SerializeField] private float puzSize_Min;
+    [SerializeField] private float puzSize_Max;
+    [SerializeField] private float puzDistance;
 
-    [System.NonSerialized] public bool LimAreaintered;
-    [System.NonSerialized] public GameObject InterLimObj;
+    [System.NonSerialized] public bool limmitAreaintered;
+    [System.NonSerialized] public GameObject interLimmitObj;
 
-    [System.NonSerialized] private List<GameObject> ListPuz = new List<GameObject>(32);  //‘I‘ğ’†‚ÌƒpƒYƒ‹ƒIƒuƒWƒFƒNƒg‚ÌƒŠƒXƒgB
-    private GameObject LastPuz;
+    [System.NonSerialized] private List<GameObject> puzzleList = new List<GameObject>(32);  //é¸æŠä¸­ã®ãƒ‘ã‚ºãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒªã‚¹ãƒˆã€‚
+    private GameObject puzzleListObj;
 
-    private Vector2 nut;
+    private Vector2 containerBottomLeftPos;
 
-    private int NowPLAttack;                //ƒvƒŒƒCƒ„[‚ÌuŒ»İ‚ÌvUŒ‚—Í@Šî‘b’l‚ÍPlayerScript“à‚ÌPlayerAttack
-    private int ManaPlusCount = 0;          //‚»‚ÌX‚Ìƒ}ƒi‰ñ•œ—Ê
-    private int CurePlusCount = 0;          //‚»‚ÌX‚ÌHP‰ñ•œ—Ê
+    private int nowPLAttack;                //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã€Œç¾åœ¨ã®ã€æ”»æ’ƒåŠ›ã€€åŸºç¤å€¤ã¯PlayerScriptå†…ã®PlayerAttack
+    private int manaPlusCount = 0;          //ãã®æ™‚ã€…ã®ãƒãƒŠå›å¾©é‡
+    private int curePlusCount = 0;          //ãã®æ™‚ã€…ã®HPå›å¾©é‡
 
-    //‚±‚±‚©‚çUIŠÖŒW
+    //ã“ã“ã‹ã‚‰UIé–¢ä¿‚
     [Header("UI")]
-    [SerializeField] private TextMeshProUGUI PopText;     //ƒ‚ƒm‚ğƒhƒ‰ƒbƒO‚µ‚½‚è‚µ‚Ä‚¢‚é‚É‚Â‚¢‚Ä‚­‚éUI@Œ»óŒ©‚Ã‚ç‚¢‚Ì‚Å‰ü‘P‚µ‚½‚¢
+    [SerializeField] private TextMeshProUGUI popText;     //ãƒ¢ãƒã‚’ãƒ‰ãƒ©ãƒƒã‚°ã—ãŸã‚Šã—ã¦ã„ã‚‹æ™‚ã«ã¤ã„ã¦ãã‚‹UIã€€ç¾çŠ¶è¦‹ã¥ã‚‰ã„ã®ã§æ”¹å–„ã—ãŸã„
 
-    [SerializeField] private TextMeshProUGUI TurnPoint;
+    [SerializeField] private TextMeshProUGUI turnPoint;
 
-    [SerializeField] private TextMeshProUGUI Last_Score;
-    [SerializeField] private TextMeshProUGUI Last_Turn;
-    [SerializeField] private TextMeshProUGUI Last_Level;
-    [SerializeField] private Canvas fail;
-    [SerializeField] private Canvas Loading;
-    [SerializeField] private LineRenderer PuzzleLine;
+    [SerializeField] private TextMeshProUGUI last_Score_UI;
+    [SerializeField] private TextMeshProUGUI last_Turn_UI;
+    [SerializeField] private TextMeshProUGUI last_Level_UI;
+    [SerializeField] private Canvas failCanvas;
+    [SerializeField] private Canvas loadingCanvas;
+    [SerializeField] private LineRenderer puzzleLineCanvas;
 
 
-    //‰¹ŠÖŒW
+    //éŸ³é–¢ä¿‚
     [Header("Sound")]
-    [SerializeField] private CriWare.Assets.CriAtomCueReference CueRef_SE;
-    [SerializeField] private CriWare.Assets.CriAtomCueReference CueRef_BGM;
-    [System.NonSerialized] private bool Bgm = false;
-    [System.NonSerialized] private string BGM_Name = "PlayBGM";
+    [System.NonSerialized] private bool bgm = false;
+    [System.NonSerialized] private string bgm_Name = "PlayBGM";
 
-    //“W¦—p
+    //å±•ç¤ºç”¨
     [Header("Trial")]
-    public bool Trial_ver = false;
+    public bool trial_ver = false;
     [SerializeField] private int turnlimit;
-    [SerializeField] private Canvas ThankPlay;
-    [SerializeField] private TextMeshProUGUI Last_Score_Trial;
-    [SerializeField] private TextMeshProUGUI Last_Turn_Trial;
-    [SerializeField] private TextMeshProUGUI Last_Level_Trial;
+    [SerializeField] private Canvas thankPlay;
+    [SerializeField] private TextMeshProUGUI last_Score_UI_Trial;
+    [SerializeField] private TextMeshProUGUI last_Turn_UI_Trial;
+    [SerializeField] private TextMeshProUGUI last_Level_UI_Trial;
 
 
     void Awake()
     {
-        Loading.enabled = true;
-        PopText.enabled = false;
+        loadingCanvas.enabled = true;
+        popText.enabled = false;
 
         MakePuz(15);
 
-        fail.enabled = false;
-        nut = new Vector2(-11, -10);
-        ADXSoundManager.Instance.GameValue(000, PLScript.HP_Percent);
+        failCanvas.enabled = false;
+        containerBottomLeftPos = new Vector2(-11, -10);
+        ADXSoundManager.Instance.GameValue(000, playerScript.hp_Percent);
 
-        if (CueRef_BGM.AcbAsset.Status != CriAtomExAcbLoader.Status.Complete)
-        {
-            if (CueRef_BGM.AcbAsset.Status != CriAtomExAcbLoader.Status.Loading)
-            {
-                CueRef_BGM.AcbAsset.LoadImmediate();
-            }
-        }
-        PuzzleLine.positionCount = 0;
-        PuzzleLine.numCapVertices = 100;
-        PuzzleLine.numCornerVertices = 100;
+        puzzleLineCanvas.positionCount = 0;
+        puzzleLineCanvas.numCapVertices = 100;
+        puzzleLineCanvas.numCornerVertices = 100;
 
-        ThankPlay.enabled = false;
+        thankPlay.enabled = false;
     }
 
     void Update()
     {
-        //BGMŠJnˆ—
-        if (CueRef_BGM.AcbAsset.Status == CriAtomExAcbLoader.Status.Complete && Game == false && Bgm == false)
+        //BGMé–‹å§‹å‡¦ç†
+        if (ADXSoundManager.Instance.IsSoundReady(E_Sounds.BGM_InGame) && game == false && bgm == false)
         {
-            ADXSoundManager.Instance.PlaySound(BGM_Name, CueRef_BGM.AcbAsset.Handle, 000, null, false);
-            Game = true;
-            Bgm = true;
-            Loading.enabled = false;
+            ADXSoundManager.Instance.PlaySound(E_Sounds.BGM_InGame);
+            game = true;
+            bgm = true;
+            loadingCanvas.enabled = false;
         }
-        if (Game == true)
+
+        if (!game) return;
+
+        popText.transform.position = Input.mousePosition;
+        if (Input.GetMouseButtonDown(0))
         {
-            PopText.transform.position = Input.mousePosition;
-            if (Input.GetMouseButtonDown(0))
-            {
-                FirstPuz();
-            }
-            if (Input.GetMouseButton(0) && ListPuz.Count > 0)
-            {
-                Dragging();
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                DeletePuz();
-                PopText.enabled = false;
-                ManaPlusCount = 0;
-                CurePlusCount = 0;
-                NowPLAttack = PLScript.PL_Attack;      //ƒvƒŒƒCƒ„[UŒ‚—Í‚Ì‰Šú‰»
-            }
-
-            //LimitArea“à‚ÉA.Lim‚ª“ü‚Á‚½
-            if (LimAreaintered == true)
-            {
-                float lpos = InterLimObj.transform.position.x;
-                ReMake(lpos);
-                InterLimObj.transform.position = new Vector2(lpos, 80);
-                LimAreaintered = false;
-            }
-
-            //€‚ñ‚¾‚¼I
-            if (PLScript.NowHP <= 0)
-            {
-                PLScript.HP_Percent = 1;
-                Game = false;
-                fail.enabled = true;
-                Last_Score.text = "SCORE:" + score;
-                Last_Turn.text = "TURN:" + turn;
-                Last_Level.text = "LEVEL:" + PLScript.Level;
-                ADXSoundManager.Instance.StopSound(BGM_Name);
-            }
-
-            //“W¦—pBool‚ªTrue‚Ì‚Ìˆ—
-            if (Trial_ver == true && turn == turnlimit)
-            {
-                Game = false;
-                ThankPlay.enabled = true;
-                Last_Score_Trial.text = "SCORE:" + score;
-                Last_Turn_Trial.text = "TURN:" + turn;
-                Last_Level_Trial.text = "LEVEL:" + PLScript.Level;
-            }
-
-            //ƒQ[ƒ€•Ï”‚Ì‘‚«Š·‚¦
-            ADXSoundManager.Instance.GameValue(000, PLScript.HP_Percent);
+            FirstPuz();
         }
+        if (Input.GetMouseButton(0) && puzzleList.Count > 0)
+        {
+            Dragging();
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            DeletePuz();
+            popText.enabled = false;
+            manaPlusCount = 0;
+            curePlusCount = 0;
+            nowPLAttack = playerScript.GetPLAttackPT;      //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ”»æ’ƒåŠ›ã®åˆæœŸåŒ–
+        }
+
+        //LimitAreaå†…ã«A.LimãŒå…¥ã£ãŸæ™‚
+        if (limmitAreaintered == true)
+        {
+            float lpos = interLimmitObj.transform.position.x;
+            ReMake(lpos);
+            interLimmitObj.transform.position = new Vector2(lpos, 80);
+            limmitAreaintered = false;
+        }
+
+        //æ­»ã‚“ã æ™‚ã®å‡¦ç†
+        if (playerScript.GetHP <= 0)
+        {
+            //PLScript.hp_Percent = 1;
+            game = false;
+            failCanvas.enabled = true;
+            last_Score_UI.text = "SCORE:" + score;
+            last_Turn_UI.text = "TURN:" + turn;
+            last_Level_UI.text = "LEVEL:" + playerScript.playerLevel;
+            ADXSoundManager.Instance.StopSound(bgm_Name);
+        }
+
+        //å±•ç¤ºç”¨BoolãŒTrueã®æ™‚ã®å‡¦ç†
+        if (trial_ver == true && turn == turnlimit)
+        {
+            game = false;
+            thankPlay.enabled = true;
+            last_Score_UI_Trial.text = "SCORE:" + score;
+            last_Turn_UI_Trial.text = "TURN:" + turn;
+            last_Level_UI_Trial.text = "LEVEL:" + playerScript.playerLevel;
+        }
+
+        //ã‚²ãƒ¼ãƒ å¤‰æ•°ã®æ›¸ãæ›ãˆ
+        ADXSoundManager.Instance.GameValue(000, playerScript.hp_Percent);
+
     }
 
 
 
-    //ƒpƒYƒ‹‘I‘ğBƒNƒŠƒbƒN‰Ÿ‰º‚Ìˆ—
+    /// <summary>
+    /// ãƒ‘ã‚ºãƒ«é¸æŠã€‚ã‚¯ãƒªãƒƒã‚¯æŠ¼ä¸‹æ™‚ã®å‡¦ç†
+    /// </summary>
     void FirstPuz()
     {
-        RaycastHit2D hit2D = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), nut, 2.3f);
-        if(hit2D.collider != null)
-        {
-            string tag = hit2D.collider.tag;
+        RaycastHit2D hit2D = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), containerBottomLeftPos, 2.3f);
+        if (hit2D.collider == null) return;
 
-            if (tag == "Enemy" || tag == "Sword" || tag == "Mana" || tag == "Cure")
+        string tag = hit2D.collider.tag;
+
+        if (tag == "Enemy" || tag == "Sword" || tag == "Mana" || tag == "Cure")
+        {
+            nowPLAttack = playerScript.GetPLAttackPT;
+            playerScript.Revengeing(nowPLAttack);
+            GameObject thisPuz = hit2D.collider.gameObject;
+            puzzleList.Add(thisPuz);
+            Color PuzColor = thisPuz.GetComponent<SpriteRenderer>().color;
+            PuzColor.a = 0.5f;
+            thisPuz.GetComponent<SpriteRenderer>().color = PuzColor;
+            puzzleListObj = thisPuz;
+            AddNewLinePos(thisPuz.transform);
+        }
+        if (tag == "Enemy")
+        {
+            popText.enabled = true;
+            popText.color = Color.red;
+            popText.text = nowPLAttack + " Dam";
+            ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Enemy);
+        }
+        else if (tag == "Sword")
+        {
+            nowPLAttack += 1;
+            popText.enabled = true;
+            popText.color = Color.red;
+            popText.text = nowPLAttack + " Dam";
+            ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Sword);
+        }
+        else if (tag == "Mana")
+        {
+            manaPlusCount++;
+            popText.enabled = true;
+            popText.color = Color.cyan;
+            popText.text = manaPlusCount + " +MP";
+            ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Mana);
+        }
+        else if (tag == "Cure")
+        {
+            curePlusCount++;
+            popText.enabled = true;
+            popText.color = Color.green;
+            popText.text = curePlusCount + " +HP";
+            ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Cure);
+        }
+
+    }
+
+    /// <summary>
+    /// ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®å‡¦ç†
+    /// </summary>
+    void Dragging()
+    {
+        RaycastHit2D hit2D = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), containerBottomLeftPos, 2.3f);
+
+        if (hit2D.collider == null) return;
+
+        string tag = hit2D.collider.tag;
+        if (tag == puzzleListObj.tag)
+        {
+            GameObject nowPuzzle = hit2D.collider.gameObject;
+            Vector2 puzDist = nowPuzzle.transform.position - puzzleListObj.transform.position;
+
+            //listPuzã®ä¸­ã«ã™ã§ã«å…¥ã£ã¦ã„ã‚‹ã‚‚ã®ã‚’RayãŒæŒ‡ã—ã¦ã„ã‚‹ã‹ã€
+            //Rayã®å…ˆã«ã‚ã‚‹ãƒ¢ãƒã¨å…ˆã«è§¦ã£ã¦ãŸã‚‚ã®ã®è·é›¢ãŒãŠéš£ã•ã‚“ã§ã¯ãªã„æ™‚
+            if (puzzleList.Contains(nowPuzzle) || puzDist.magnitude > puzDistance) return;
+
+
+            puzzleList.Add(nowPuzzle);       //é¸æŠä¸­ãƒªã‚¹ãƒˆã«ä»ŠæŒ‡ã—ã¦ã„ã‚‹ãƒ‘ã‚ºãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿½åŠ 
+            Color PuzColor = nowPuzzle.GetComponent<SpriteRenderer>().color;
+            PuzColor.a = 0.5f;
+            nowPuzzle.GetComponent<SpriteRenderer>().color = PuzColor;
+            //ã‚¢ãƒ«ãƒ•ã‚¡å€¤ã‚’åŠåˆ†ã«ã—ã¦ã€ã€Œé¸æŠä¸­ã€ã§ã‚ã‚‹ã“ã¨ã‚’ç¤ºã™
+
+            puzzleListObj = nowPuzzle;
+            if (tag == "Mana")
             {
-                NowPLAttack = PLScript.PL_Attack;
-                PLScript.Revengeing(NowPLAttack);
-                GameObject thisPuz = hit2D.collider.gameObject;
-                ListPuz.Add(thisPuz);
-                Color PuzColor = thisPuz.GetComponent<SpriteRenderer>().color;
-                PuzColor.a = 0.5f;
-                thisPuz.GetComponent<SpriteRenderer>().color = PuzColor;
-                LastPuz = thisPuz;
-                AddNewLinePos(thisPuz.transform);
-            }
-            if (tag == "Enemy")
-            {
-                PopText.enabled = true;
-                PopText.color = Color.red;
-                PopText.text = NowPLAttack + " Dam";
-                ADXSoundManager.Instance.PlaySound("Enem", CueRef_SE.AcbAsset.Handle, 002, null, false);
-            }
-            else if (tag == "Sword")
-            {
-                NowPLAttack += 1;
-                PopText.enabled = true;
-                PopText.color = Color.red;
-                PopText.text = NowPLAttack + " Dam";
-                ADXSoundManager.Instance.PlaySound("sword", CueRef_SE.AcbAsset.Handle, 005, null, false);
-            }
-            else if (tag == "Mana")
-            {
-                ManaPlusCount++;
-                PopText.enabled = true;
-                PopText.color = Color.cyan;
-                PopText.text = ManaPlusCount + " +MP";
-                ADXSoundManager.Instance.PlaySound("mana", CueRef_SE.AcbAsset.Handle, 003, null, false);
+                manaPlusCount++;
+                popText.text = manaPlusCount + " +MP";
+                ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Mana);
             }
             else if (tag == "Cure")
             {
-                CurePlusCount++;
-                PopText.enabled = true;
-                PopText.color = Color.green;
-                PopText.text = CurePlusCount + " +HP";
-                ADXSoundManager.Instance.PlaySound("cure", CueRef_SE.AcbAsset.Handle, 004, null, false);
+                curePlusCount++;
+                popText.text = curePlusCount + " +HP";
+                ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Cure);
             }
+            else if (tag == "Sword")
+            {
+                nowPLAttack++;
+                popText.text = nowPLAttack + " Dam";
+                ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Sword);
+            }
+            else if (tag == "Enemy")
+            {
+                popText.text = nowPLAttack + " Dam";
+                ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Enemy);
+            }
+            AddNewLinePos(nowPuzzle.transform);
         }
-    }
-
-    //‚®‚¢`‚Á‚Ä‘I‘ğ‚·‚é“z
-    void Dragging()
-    {
-        RaycastHit2D hit2D = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), nut, 2.3f);
-
-        if (hit2D.collider != null)
+        else if(tag == "Enemy" && puzzleListObj.tag == "Sword")
         {
-            string tag = hit2D.collider.tag;
-            if (tag == LastPuz.tag)
+            GameObject thisPuz = hit2D.collider.gameObject;
+            Vector2 dis = thisPuz.transform.position - puzzleListObj.transform.position;
+
+            if (!puzzleList.Contains(thisPuz) && dis.magnitude <= puzDistance)
             {
-                GameObject thisPuz = hit2D.collider.gameObject;
-                Vector2 dis = thisPuz.transform.position - LastPuz.transform.position;
+                puzzleList.Add(thisPuz);
+                Color PuzColor = thisPuz.GetComponent<SpriteRenderer>().color;
+                PuzColor.a = 0.5f;
+                thisPuz.GetComponent<SpriteRenderer>().color = PuzColor;
+                puzzleListObj = thisPuz;
+                ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Enemy);
 
-                if(!ListPuz.Contains(thisPuz) && dis.magnitude <= PuzDistance)
-                    //listPuz‚Ì’†‚É‚·‚Å‚É“ü‚Á‚Ä‚¢‚é‚à‚Ìu‚Å‚Í‚È‚¢v‚à‚Ì‚ğRay‚ªw‚µ‚Ä‚¢‚ÄA
-                    //Ray‚Ìæ‚É‚ ‚éƒ‚ƒm‚Ææ‚ÉG‚Á‚Ä‚½‚à‚Ì‚Ì‹——£‚ª‚¨—×‚³‚ñ‚Ì
-                {
-                    ListPuz.Add(thisPuz);       //‘I‘ğ’†ƒŠƒXƒg‚É¡w‚µ‚Ä‚¢‚éƒpƒYƒ‹ƒIƒuƒWƒFƒNƒg‚ğ’Ç‰Á
-                    Color PuzColor = thisPuz.GetComponent<SpriteRenderer>().color;
-                    PuzColor.a = 0.5f;
-                    thisPuz.GetComponent<SpriteRenderer>().color = PuzColor;
-                    //ƒAƒ‹ƒtƒ@’l‚ğ”¼•ª‚É‚µ‚ÄAu‘I‘ğ’†v‚Å‚ ‚é‚±‚Æ‚ğ¦‚·
-
-                    LastPuz = thisPuz;
-                    if (tag == "Mana")
-                    {
-                        ManaPlusCount++;
-                        PopText.text = ManaPlusCount + " +MP";
-                        ADXSoundManager.Instance.PlaySound("mana", CueRef_SE.AcbAsset.Handle, 003, null, false);
-                    }
-                    else if (tag == "Cure")
-                    {
-                        CurePlusCount++;
-                        PopText.text = CurePlusCount + " +HP";
-                        ADXSoundManager.Instance.PlaySound("cure", CueRef_SE.AcbAsset.Handle, 004, null, false);
-                    }
-                    else if (tag == "Sword")
-                    {
-                        NowPLAttack++;
-                        PopText.text = NowPLAttack + " Dam";
-                        ADXSoundManager.Instance.PlaySound("sword", CueRef_SE.AcbAsset.Handle, 005, null, false);
-                    }
-                    else if (tag == "Enemy")
-                    {
-                        PopText.text = NowPLAttack + " Dam";
-                        ADXSoundManager.Instance.PlaySound("Enem", CueRef_SE.AcbAsset.Handle, 002, null, false);
-                    }
-                    AddNewLinePos(thisPuz.transform);
-                }
-
+                AddNewLinePos(thisPuz.transform);
             }
-            else if(tag == "Enemy" && LastPuz.tag == "Sword")
+        }
+        else if (tag == "Sword" && puzzleListObj.tag == "Enemy")
+        {
+            GameObject thisPuz = hit2D.collider.gameObject;
+            Vector2 dis = thisPuz.transform.position - puzzleListObj.transform.position;
+
+            if (!puzzleList.Contains(thisPuz) && dis.magnitude <= puzDistance)
             {
-                GameObject thisPuz = hit2D.collider.gameObject;
-                Vector2 dis = thisPuz.transform.position - LastPuz.transform.position;
+                puzzleList.Add(thisPuz);
+                Color PuzColor = thisPuz.GetComponent<SpriteRenderer>().color;
+                PuzColor.a = 0.5f;
+                thisPuz.GetComponent<SpriteRenderer>().color = PuzColor;
+                puzzleListObj = thisPuz;
+                nowPLAttack++;
+                popText.text = nowPLAttack + " Dam";
+                ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Sword);
 
-                if (!ListPuz.Contains(thisPuz) && dis.magnitude <= PuzDistance)
-                {
-                    ListPuz.Add(thisPuz);
-                    Color PuzColor = thisPuz.GetComponent<SpriteRenderer>().color;
-                    PuzColor.a = 0.5f;
-                    thisPuz.GetComponent<SpriteRenderer>().color = PuzColor;
-                    LastPuz = thisPuz;
-                    ADXSoundManager.Instance.PlaySound("Enem", CueRef_SE.AcbAsset.Handle, 002, null, false);
-
-                    AddNewLinePos(thisPuz.transform);
-                }
-            }
-            else if (tag == "Sword" && LastPuz.tag == "Enemy")
-            {
-                GameObject thisPuz = hit2D.collider.gameObject;
-                Vector2 dis = thisPuz.transform.position - LastPuz.transform.position;
-
-                if (!ListPuz.Contains(thisPuz) && dis.magnitude <= PuzDistance)
-                {
-                    ListPuz.Add(thisPuz);
-                    Color PuzColor = thisPuz.GetComponent<SpriteRenderer>().color;
-                    PuzColor.a = 0.5f;
-                    thisPuz.GetComponent<SpriteRenderer>().color = PuzColor;
-                    LastPuz = thisPuz;
-                    NowPLAttack++;
-                    PopText.text = NowPLAttack + " Dam";
-                    ADXSoundManager.Instance.PlaySound("sword", CueRef_SE.AcbAsset.Handle, 005, null, false);
-
-                    AddNewLinePos(thisPuz.transform);
-                }
+                AddNewLinePos(thisPuz.transform);
             }
         }
     }
 
-    //‘I‘ğ‚µ‚½ƒpƒYƒ‹‚½‚¿‚ğÁ‚·
+    //void ConnectPuzzle(RaycastHit2D hit2D, string tag)
+    //{
+    //    GameObject thisPuz = hit2D.collider.gameObject;
+    //    Vector2 dis = thisPuz.transform.position - lastPuzzleObj.transform.position;
+
+    //    if (!listPuzzle.Contains(thisPuz) && dis.magnitude <= puzDistance)
+    //    {
+    //        listPuzzle.Add(thisPuz);
+    //        Color PuzColor = thisPuz.GetComponent<SpriteRenderer>().color;
+    //        PuzColor.a = 0.5f;
+    //        thisPuz.GetComponent<SpriteRenderer>().color = PuzColor;
+    //        lastPuzzleObj = thisPuz;
+    //        nowPLAttack++;
+    //        popText.text = nowPLAttack + " Dam";
+    //        ADXSoundManager.Instance.PlaySound("sword", cueReference_SE.AcbAsset.Handle, 005, null, false);
+
+    //        AddNewLinePos(thisPuz.transform);
+    //    }
+    //}
+
+    //é¸æŠã—ãŸãƒ‘ã‚ºãƒ«ãŸã¡ã‚’æ¶ˆã™
     void DeletePuz()
     {
-        if (ListPuz.Count >= 2)
+        if (puzzleList.Count >= 2)
         {
-            if (ListPuz[1].tag == "Mana")
+            if (puzzleList[1].tag == "Mana")
             {
-                PLScript.MPAdd(ListPuz.Count);
+                playerScript.MPAdd(puzzleList.Count);
             }
-            else if (ListPuz[1].tag == "Cure")
+            else if (puzzleList[1].tag == "Cure")
             {
-                PLScript.HPAdd(ListPuz.Count);
+                playerScript.HPAdd(puzzleList.Count);
             }
             int EnemCount = 0;
-            foreach (var item in ListPuz)
+            foreach (var item in puzzleList)
             {
                 string tag = item.tag;
                 if (tag == "Enemy")
                 {
                     EnemSc EnemScript = item.GetComponent<EnemSc>();
-                    EnemScript.EnemyHp = EnemScript.EnemyHp - NowPLAttack;
+                    EnemScript.enemyHp = EnemScript.enemyHp - nowPLAttack;
                     SpriteRenderer itemSprite = item.GetComponent<SpriteRenderer>();
                     Color PuzColor = itemSprite.color;
                     PuzColor.a = 1;
@@ -333,25 +347,25 @@ public class Controller : MonoBehaviour
                 }
                 else
                 {
-                    Enab.count--;
+                    Enable.count--;
                     Destroy(item);
                 }
             }
             turn++;
-            TurnPoint.text = turn.ToString();
+            turnPoint.text = turn.ToString();
             Invoke(nameof(CallHPDown), 0.2f);
         }
         else
         {
-            foreach (var item in ListPuz)
+            foreach (var item in puzzleList)
             {
                 Color PuzColor = item.GetComponent<SpriteRenderer>().color;
                 PuzColor.a = 1;
                 item.GetComponent<SpriteRenderer>().color = PuzColor;
             }
         }
-        ListPuz.Clear();
-        PuzzleLine.positionCount = 0;
+        puzzleList.Clear();
+        puzzleLineCanvas.positionCount = 0;
     }
 
     void ReMake(float x)
@@ -359,26 +373,28 @@ public class Controller : MonoBehaviour
         for(int i = 0; i< 6; i++)
         {
             int r_kind = UnityEngine.Random.Range(0, 4);
-            float r_Scale = UnityEngine.Random.Range(PuzSize_Min, PuzSize_Max);
+            float r_Scale = UnityEngine.Random.Range(puzSize_Min, puzSize_Max);
             float r_Pos = UnityEngine.Random.Range(0f, 1f);
-            GameObject puz = new GameObject();
-            if (r_kind == 3) //Enemy‚ğˆø‚¢‚½
+            GameObject puz = null;
+            if (r_kind == 3) //Enemyã‚’å¼•ã„ãŸæ™‚
             {
-                EnemSc Enem = Instantiate(Enempuz); //Enemy‚ğ¶¬
-                Enem.ChangeLev((PLScript.Level / 2) + 1);   //ƒŒƒxƒ‹’²®
-                Enab.AllEnemies.Add(Enem);
+                EnemSc Enem = Instantiate(enemyPuzzle); //Enemyã‚’ç”Ÿæˆ
+                Enem.ChangeLev((playerScript.playerLevel / 2) + 1);   //ãƒ¬ãƒ™ãƒ«èª¿æ•´
+                Enable.allEnemies.Add(Enem);
                 puz = Enem.gameObject;
+                Debug.Log($"puz:{puz.name}");
             }
             else
             {
-                puz = Instantiate(Puz[r_kind]);
+                puz = Instantiate(puzzles[r_kind]);
+                Debug.Log($"puz:{puz.name}");
             }
             puz.transform.position = new Vector2(x+r_Pos, 40 + i * 4);
             puz.transform.localScale = new Vector3(r_Scale, r_Scale, 1);
         }
     }
 
-    //ƒpƒYƒ‹¶¬(‰Šú)
+    //ãƒ‘ã‚ºãƒ«ç”Ÿæˆ(åˆæœŸ)
     void MakePuz(int n)
     {
         for(int i = 0; i < 7; i++)
@@ -386,23 +402,26 @@ public class Controller : MonoBehaviour
             for(int j = 0; j < n; j++)
             {
                 int r_kind = UnityEngine.Random.Range(0, 4);
-                float r_Scale = UnityEngine.Random.Range(PuzSize_Min, PuzSize_Max);
+                float r_Scale = UnityEngine.Random.Range(puzSize_Min, puzSize_Max);
                 float r_Pos = UnityEngine.Random.Range(0f, 1f);
                 int r = 0;
-                GameObject puz = new GameObject();
-                if (r_kind == 3) //Enemy‚ğˆø‚¢‚½
+                GameObject puz = null;
+                Debug.Log($"r_kind:{r_kind}");
+                if (r_kind == 3) //Enemyã‚’å¼•ã„ãŸæ™‚
                 {
-                    r = UnityEngine.Random.Range(0, 3 + 1); //2/3”»’è
-                    if (r != 0)  //“–‚½‚Á‚½‚¼I
-                    {
-                        EnemSc Enem = Instantiate(Enempuz); //Enemy‚ğ°‚ê‚Ä¶¬
-                        Enab.AllEnemies.Add(Enem);
-                        puz = Enem.gameObject;
-                    }
+                    r = UnityEngine.Random.Range(0, 3 + 1); //2/3åˆ¤å®š
+                    if (r == 0) return;     //ã¯ãšã‚Œ
+
+                    EnemSc Enem = Instantiate(enemyPuzzle); //Enemyã‚’æ™´ã‚Œã¦ç”Ÿæˆ
+                    Enable.allEnemies.Add(Enem);
+                    puz = Enem.gameObject;
+                    Debug.Log($"puz:{puz.name}");
+
                 }
                 else
                 {
-                    puz = Instantiate(Puz[r_kind]);
+                    puz = Instantiate(puzzles[r_kind]);
+                    Debug.Log($"puz:{puz.name}");
                 }
                 puz.transform.position = new Vector2(-9 + i * 4 + r_Pos, -8 + j * 4);
                 puz.transform.localScale = new Vector3(r_Scale, r_Scale, 1);
@@ -410,20 +429,20 @@ public class Controller : MonoBehaviour
         }
         for(int i =0; i < 7; i++)
         {
-            Lim[i].transform.position = new Vector2(-9 + i * 4, 80);
+            Limits[i].transform.position = new Vector2(-9 + i * 4, 80);
         }
     }
 
-    //PLScript‚ÌHPDown‚ğƒRƒ‹[ƒ`ƒ“(Invoke)‚·‚é‚½‚ß‚ÌŠÖ”
+    //PLScriptã®HPDownã‚’ã‚³ãƒ«ãƒ¼ãƒãƒ³(Invoke)ã™ã‚‹ãŸã‚ã®é–¢æ•°
     void CallHPDown()
     {
-        PLScript.HPDown();
+        playerScript.HPDown();
     }
 
-    //Line‚ğL‚Î‚·‚½‚ß‚ÌŠÖ”
+    //Lineã‚’ä¼¸ã°ã™ãŸã‚ã®é–¢æ•°
     void AddNewLinePos(Transform tr)
     {
-        PuzzleLine.positionCount++;
-        PuzzleLine.SetPosition(PuzzleLine.positionCount - 1, tr.position);
+        puzzleLineCanvas.positionCount++;
+        puzzleLineCanvas.SetPosition(puzzleLineCanvas.positionCount - 1, tr.position);
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
@@ -7,43 +7,42 @@ using UnityEngine.UI;
 
 public class AbilityButtonScript : MonoBehaviour
 {
-    //ƒAƒrƒŠƒeƒB‚ğƒQƒbƒg‚µ‚½‚Ég‚í‚ê‚é‚â‚Â
-    [SerializeField] private TextMeshProUGUI Title;
-    [SerializeField] private TextMeshProUGUI Description;
-    [SerializeField] private Image ThisSprite;
+    //ã‚¢ãƒ“ãƒªãƒ†ã‚£ã‚’ã‚²ãƒƒãƒˆã—ãŸæ™‚ã«ä½¿ã‚ã‚Œã‚‹ã‚„ã¤
+    [SerializeField] private TextMeshProUGUI abilityName;
+    [SerializeField] private TextMeshProUGUI description;
+    [SerializeField] private Image abilitySprite;
 
-    //ƒZƒbƒgƒAƒbƒv‚É•K—v‚È•Ï”@ƒAƒrƒŠƒeƒB‘I‘ğ•Ò
+    //ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã«å¿…è¦ãªå¤‰æ•°ã€€ã‚¢ãƒ“ãƒªãƒ†ã‚£é¸æŠç·¨
     [Header("AbilityLevelUp")]
-    [TextArea(1,6),SerializeField] private List<string> AbilityDescriptions = new List<string>(32);
-    [SerializeField] private List<Sprite> AbilitySprites = new List<Sprite>(32);
+    [TextArea(1,6),SerializeField] private List<string> abilityDescriptions = new List<string>(32);
+    [SerializeField] private List<Sprite> abilitySprites = new List<Sprite>(32);
 
-    //ƒZƒbƒgƒAƒbƒv‚É•K—v‚È•Ï”@ƒAƒrƒŠƒeƒBƒŒƒxƒ‹MAX‚É‚È‚Á‚½‚ ‚Æ
+    //ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã«å¿…è¦ãªå¤‰æ•°ã€€ã‚¢ãƒ“ãƒªãƒ†ã‚£ãƒ¬ãƒ™ãƒ«MAXã«ãªã£ãŸã‚ã¨
     [Header("TadanoLebelUp")]
-    [SerializeField] private string ThisButtonRole;
-    [SerializeField] private string AftAbilityMAX_Text;
-    [SerializeField] private Sprite AftAbilityMAX_Sprite;
+    [SerializeField] private string thisButtonRole;
+    [SerializeField] private string abilityMAX_Text;
+    [SerializeField] private Sprite abilityMAX_Sprite;
 
     [Space(5)]
 
     [SerializeField] private PlayerScript PLScript;
-    [SerializeField] private CriWare.Assets.CriAtomCueReference CueRefarence;
 
-    [System.NonSerialized] public int thone;
-    [System.NonSerialized] public int CurePoint;
-    [System.NonSerialized] public int AvoidPercent;
+    [System.NonSerialized] private int thone;
+    [System.NonSerialized] private int curePoint;
+    [System.NonSerialized] private int avoidPercent;
 
-    [System.NonSerialized] private bool AfterAbility;
+    [System.NonSerialized] private bool _afterAbility;
 
 
     public void SetUp_Ability(string AbilityName)
     {
-        AfterAbility = false;
-        thone = PLScript.ThonePoint + 1;
-        CurePoint = PLScript.CurePoint + 1;
-        AvoidPercent = PLScript.AvoidPercent + 10;
-        Debug.Log($"thone = {thone}, CurePoint = {CurePoint}, AvoidPercent = {AvoidPercent}");
+        _afterAbility = false;
+        thone = PLScript.thonePoint + 1;
+        curePoint = PLScript.curePoint + 1;
+        avoidPercent = PLScript.avoidPercent + 10;
+        Debug.Log($"thone = {thone}, CurePoint = {curePoint}, AvoidPercent = {avoidPercent}");
 
-        Title.text = AbilityName;
+        abilityName.text = AbilityName;
 
         int index;
         switch (AbilityName)
@@ -77,47 +76,48 @@ public class AbilityButtonScript : MonoBehaviour
 
     private void ChangeText_Ability(int index)
     {
-        AbilityDescriptions[index] = Replace_Placeholders(AbilityDescriptions[index]);
-        Description.text = AbilityDescriptions[index];
-        ThisSprite.sprite = AbilitySprites[index];
+        abilityDescriptions[index] = Replace_Placeholders(abilityDescriptions[index]);
+        description.text = abilityDescriptions[index];
+        abilitySprite.sprite = abilitySprites[index];
     }
 
     public void PushedThis()
     {
-        ADXSoundManager.Instance.PlaySound("UI", CueRefarence.AcbAsset.Handle, 000, null, false);
-        if (!AfterAbility)
+        ADXSoundManager.Instance.PlaySound(E_Sounds.SE_UI);
+        if (_afterAbility)
         {
-            PLScript.DecideAbility(Title.text);
+            PLScript.Decide_AftAbility(thisButtonRole);
         }
         else
         {
-            PLScript.Decide_AftAbility(ThisButtonRole);
+            PLScript.DecideAbility(abilityName.text);
         }
     }
 
     public void SetUp_AfterAbility()
     {
-        AfterAbility = true;
-        Description.text = AftAbilityMAX_Text;
-        ThisSprite.sprite = AftAbilityMAX_Sprite;
+        _afterAbility = true;
+        description.text = abilityMAX_Text;
+        abilitySprite.sprite = abilityMAX_Sprite;
     }
 
-    //ƒeƒLƒXƒg‚Ì•Ï”’u‚«Š·‚¦
+    //ãƒ†ã‚­ã‚¹ãƒˆã®å¤‰æ•°ç½®ãæ›ãˆ
     private string Replace_Placeholders(string input)
     {
-        // ³‹K•\Œ»‚Å{}“à‚ÌƒvƒŒ[ƒXƒzƒ‹ƒ_[‚ğŒŸo
-        return Regex.Replace(input, @"\{(\w+)\}", match =>
+        // æ­£è¦è¡¨ç¾ã§{}å†…ã®ãƒ—ãƒ¬ãƒ¼ã‚¹ãƒ›ãƒ«ãƒ€ãƒ¼ã‚’æ¤œå‡º
+        return Regex.Replace(input, @"\{(\w+)\}",
+            match =>
         {
-            // {}“à‚Ì•¶š—ñ‚É‘Î‰‚·‚éƒNƒ‰ƒX‚ÌƒtƒB[ƒ‹ƒh‚ğ’T‚·
+            // {}å†…ã®æ–‡å­—åˆ—ã«å¯¾å¿œã™ã‚‹ã‚¯ãƒ©ã‚¹ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’æ¢ã™
             string fieldName = match.Groups[1].Value;
             var field = GetType().GetField(fieldName);
 
             if (field != null)
             {
-                // ƒtƒB[ƒ‹ƒh‚ª‘¶İ‚·‚éê‡A‚»‚Ì’l‚Å’u‚«Š·‚¦‚é
+                // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãŒå­˜åœ¨ã™ã‚‹å ´åˆã€ãã®å€¤ã§ç½®ãæ›ãˆã‚‹
                 return field.GetValue(this)?.ToString();
             }
-            return match.Value; // ƒtƒB[ƒ‹ƒh‚ªŒ©‚Â‚©‚ç‚È‚¯‚ê‚Î‚»‚Ì‚Ü‚Ü
+            return match.Value; // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãŒè¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°ãã®ã¾ã¾
         });
     }
 }

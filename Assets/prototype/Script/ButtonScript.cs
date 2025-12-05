@@ -1,4 +1,4 @@
-using CriWare;
+ï»¿using CriWare;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,23 +7,22 @@ using static CriWare.Assets.CriAtomAssetsLoader;
 
 public class ButtonScript : MonoBehaviour
 {
-    //”Ä—p“I‚Èƒ{ƒ^ƒ“‚Ég‚í‚ê‚Ä‚¢‚éƒ‚ƒm
+    //æ±ç”¨çš„ãªãƒœã‚¿ãƒ³ã«ä½¿ã‚ã‚Œã¦ã„ã‚‹ãƒ¢ãƒ
 
-    [SerializeField] private Canvas PauseCanvas;
-    [SerializeField] private Canvas ConfigCanvas;
-    [SerializeField] private CriWare.Assets.CriAtomCueReference CueRefarence;
-    [SerializeField] private Controller Ctrl;
+    [SerializeField] private Canvas pauseCanvas;
+    [SerializeField] private Canvas configCanvas;
+    [SerializeField] private Controller ctrl;
     private string sceneName;
 
 
     private void Awake()
     {
         sceneName = SceneManager.GetActiveScene().name;
-        PauseCanvas.enabled = false;
-        ConfigCanvas.enabled = false;
+        pauseCanvas.enabled = false;
+        configCanvas.enabled = false;
     }
 
-    //ƒŠƒgƒ‰ƒCƒ{ƒ^ƒ“
+    //ãƒªãƒˆãƒ©ã‚¤ãƒœã‚¿ãƒ³
     public void _Button_GameRetry()
     {
         UIClick();
@@ -31,7 +30,7 @@ public class ButtonScript : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    //ƒ^ƒCƒgƒ‹‚É–ß‚éƒ{ƒ^ƒ“
+    //ã‚¿ã‚¤ãƒˆãƒ«ã«æˆ»ã‚‹ãƒœã‚¿ãƒ³
     public void _Button_BackTitle()
     {
         UIClick();
@@ -39,7 +38,7 @@ public class ButtonScript : MonoBehaviour
         SceneManager.LoadScene("Title_Prototype");
     }
 
-    //ƒ|[ƒYƒ{ƒ^ƒ“
+    //ãƒãƒ¼ã‚ºãƒœã‚¿ãƒ³
     public void _Pause_Pless(string name)
     {
         UIClick();
@@ -47,13 +46,13 @@ public class ButtonScript : MonoBehaviour
         {
             case "on":
                 ADXSoundManager.Instance.PauseSound("PlayBGM");
-                PauseCanvas.enabled = true;
-                Ctrl.Game = false;
+                pauseCanvas.enabled = true;
+                ctrl.game = false;
                 break;
             case "off":
                 ADXSoundManager.Instance.ResumeSound("PlayBGM");
-                PauseCanvas.enabled = false;
-                Ctrl.Game = true;
+                pauseCanvas.enabled = false;
+                ctrl.game = true;
                 break;
         }
     }
@@ -61,13 +60,13 @@ public class ButtonScript : MonoBehaviour
     public void OpenConfig()
     {
         UIClick();
-        ConfigCanvas.enabled = true;
+        configCanvas.enabled = true;
     }
 
 
-    // ‰¹
+    // éŸ³
     private void UIClick()
     {
-        ADXSoundManager.Instance.PlaySound("UI", CueRefarence.AcbAsset.Handle, 000, null, false);
+        ADXSoundManager.Instance.PlaySound(E_Sounds.SE_UI);
     }
 }

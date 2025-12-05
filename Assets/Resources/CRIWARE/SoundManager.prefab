@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 81169582707497850}
   - component: {fileID: 7561693209454470840}
   - component: {fileID: -2162024119174309704}
+  - component: {fileID: 3389338020550326044}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -151,3 +152,18 @@ MonoBehaviour:
   acbAssets:
   - {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
   - {fileID: -6750239444755058063, guid: 505f11649640eec42a106f07d5fb68b9, type: 3}
+--- !u!114 &3389338020550326044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140978272901812946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 171961db8bb9284489f96894160c6cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seAcbHandle: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+  bgmAcbHandle: {fileID: -6750239444755058063, guid: 505f11649640eec42a106f07d5fb68b9, type: 3}
+  soundDatas: {fileID: 11400000, guid: 456aedc5f07ca22499667df0201a2403, type: 2}

@@ -1,4 +1,4 @@
-using CriWare;
+ï»¿using CriWare;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,9 +7,9 @@ using static CriWare.Assets.CriAtomAssetsLoader;
 
 public class MonoSc : MonoBehaviour
 {
-    //‚±‚ê‚ÍŒ•Aƒ|[ƒVƒ‡ƒ“A‰ñ•œƒAƒCƒeƒ€‚É‚Â‚¢‚Ä‚¢‚éƒXƒNƒŠƒvƒg
+    //ã“ã‚Œã¯å‰£ã€ãƒãƒ¼ã‚·ãƒ§ãƒ³ã€å›žå¾©ã‚¢ã‚¤ãƒ†ãƒ ã«ã¤ã„ã¦ã„ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 
-    //Vector2 Pos;      //LaneMove‚ÉŽg—p
+    //Vector2 Pos;      //LaneMoveã«ä½¿ç”¨
     //private bool OutofLane;
     public bool init;
 
@@ -20,13 +20,13 @@ public class MonoSc : MonoBehaviour
         init = false;
     }
 
-    void Update()
-    {
-        //LaneMove();
-    }
+    //void Update()
+    //{
+    //    //LaneMove();
+    //}
 
     /*
-    void LaneMove()         //•Ï‚ÈˆÊ’u‚ÉXÀ•W‚ª‚¸‚ê‚È‚¢‚æ‚¤‚ÉŒÅ’è‚·‚é‚½‚ß‚Ìƒƒ\ƒbƒhc¡‚Æ‚È‚Á‚Ä‚Íƒƒ\ƒbƒh‚Å‚ ‚é•K—vA‚ ‚é‚Ì‚©H‚±‚ê
+    void LaneMove()         //å¤‰ãªä½ç½®ã«Xåº§æ¨™ãŒãšã‚Œãªã„ã‚ˆã†ã«å›ºå®šã™ã‚‹ãŸã‚ã®ãƒ¡ã‚½ãƒƒãƒ‰ã€‚éŽåŽ»ã«ä½¿ç”¨ã—ã¦ã„ãŸ
     {
         if (this.transform.position.x > 13)
         {

@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c2f5ca91c2368541b771fa57d57afb7, type: 3}
+  m_Name: Sound Mapping Data
+  m_EditorClassIdentifier: 
+  Entries:
+  - Key: 11
+    AcbReference:
+      acbAsset: {fileID: -6750239444755058063, guid: 505f11649640eec42a106f07d5fb68b9, type: 3}
+      cueId: 0
+    PlayerKey: BGM
+  - Key: 12
+    AcbReference:
+      acbAsset: {fileID: -6750239444755058063, guid: 505f11649640eec42a106f07d5fb68b9, type: 3}
+      cueId: 1
+    PlayerKey: BGM
+  - Key: 1
+    AcbReference:
+      acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+      cueId: 0
+    PlayerKey: SE
+  - Key: 2
+    AcbReference:
+      acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+      cueId: 1
+    PlayerKey: SE
+  - Key: 3
+    AcbReference:
+      acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+      cueId: 2
+    PlayerKey: SE
+  - Key: 4
+    AcbReference:
+      acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+      cueId: 3
+    PlayerKey: SE
+  - Key: 5
+    AcbReference:
+      acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+      cueId: 4
+    PlayerKey: SE
+  - Key: 6
+    AcbReference:
+      acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+      cueId: 5
+    PlayerKey: SE
+  - Key: 7
+    AcbReference:
+      acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+      cueId: 6
+    PlayerKey: SE
+  - Key: 8
+    AcbReference:
+      acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+      cueId: 7
+    PlayerKey: SE
+  - Key: 9
+    AcbReference:
+      acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+      cueId: 8
+    PlayerKey: SE
+  - Key: 10
+    AcbReference:
+      acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
+      cueId: 9
+    PlayerKey: SE
