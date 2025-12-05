@@ -10,7 +10,6 @@ public class TitleScript : MonoBehaviour
     [SerializeField] private Canvas howtoCanvas;
     [SerializeField] private Canvas configCanvas;
     [SerializeField] private List<string> sceneName = new List<string>(4);
-    [SerializeField] CriWare.Assets.CriAtomCueReference cueRefarence;
 
     private void Awake()
     {
@@ -57,6 +56,6 @@ public class TitleScript : MonoBehaviour
     // 音
     private void UIClick()
     {
-        ADXSoundManager.Instance.PlaySound("UI", cueRefarence.AcbAsset.Handle, 000, null, false);
+        ADXSoundManager.Instance.PlaySound(E_Sounds.SE_UI);
     }
 }

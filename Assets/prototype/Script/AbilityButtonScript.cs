@@ -26,7 +26,6 @@ public class AbilityButtonScript : MonoBehaviour
     [Space(5)]
 
     [SerializeField] private PlayerScript PLScript;
-    [SerializeField] private CriWare.Assets.CriAtomCueReference cueRefarence;
 
     [System.NonSerialized] private int thone;
     [System.NonSerialized] private int curePoint;
@@ -84,7 +83,7 @@ public class AbilityButtonScript : MonoBehaviour
 
     public void PushedThis()
     {
-        ADXSoundManager.Instance.PlaySound("UI", cueRefarence.AcbAsset.Handle, 000, null, false);
+        ADXSoundManager.Instance.PlaySound(E_Sounds.SE_UI);
         if (_afterAbility)
         {
             PLScript.Decide_AftAbility(thisButtonRole);

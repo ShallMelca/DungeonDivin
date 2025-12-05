@@ -24,9 +24,6 @@ public class EnemSc : MonoBehaviour
     [SerializeField] private List<Vector3> level_HPAttRecast = new List<Vector3>(32);
         //Vector3(x = HP, y = Attack, z = Recast)
 
-    //音
-    [SerializeField] private CriWare.Assets.CriAtomCueReference cueRefarence;
-
     private void Awake()
     {
         inEnable = false;
@@ -43,7 +40,7 @@ public class EnemSc : MonoBehaviour
         if(enemyHp <= 0)
         {
             Disable();
-            ADXSoundManager.Instance.PlaySound("death", cueRefarence.AcbAsset.Handle, 006, null, false);
+            ADXSoundManager.Instance.PlaySound(E_Sounds.SE_EnemyDeath);
         }
         if(death == true && inEnable == true)
         {
@@ -52,7 +49,10 @@ public class EnemSc : MonoBehaviour
         enemUI.transform.rotation = Quaternion.Euler(0,0,0);
     }
 
-    void Disable()     //このパズルオブジェクトが敵で、倒された時に呼び出すメソッド
+    /// <summary>
+    /// 倒された時に呼び出すメソッド
+    /// </summary>
+    void Disable()
     {
         death = true;
         Destroy(this.gameObject);
@@ -76,6 +76,7 @@ public class EnemSc : MonoBehaviour
 
     void LevChange(int LevValueIndex)
     {
+        Debug.Log($"EnemyLevel:{LevValueIndex}");
         enemyHp = (int)Mathf.Round(level_HPAttRecast[LevValueIndex].x);
         enemyAttack = (int)Mathf.Round(level_HPAttRecast[LevValueIndex].y);
         attack_UI.text = enemyAttack.ToString();

@@ -10,7 +10,7 @@ public class PlayerScript : MonoBehaviour
 {
     //プレイヤーに関する、HPやMPなどの数値を管理する
 
-    [SerializeField] public int playerAttackPT;          //Playerのその時の基礎攻撃力
+    [SerializeField] private int playerAttackPT;          //Playerのその時の基礎攻撃力
     [SerializeField] public int playerLevel;              //現在のレベル
     [SerializeField] public Animator playerAnimator;
 
@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour
 
     [Header("HP")]
     [SerializeField] private int maxHP = 50;        //inspecterから：HPの「最大値」
-    [SerializeField] public float hp_Percent => Mathf.Abs((nowHP / maxHP) - 1);
+    [SerializeField] public float hp_Percent => (float)nowHP/maxHP;
     [System.NonSerialized] private int nowHP;        //HPの現在値
     [SerializeField] private Slider hpBar;          //HPバー
     [SerializeField] TextMeshProUGUI hpNow_UI;         //HPバーの数値
@@ -129,13 +129,24 @@ public class PlayerScript : MonoBehaviour
 
     }
 
+    public int GetPLAttackPT
+    {
+        get
+        {
+            return playerAttackPT;
+        }
+    }
+
     /// <summary>
     /// 現在のHPを外部に渡す
     /// </summary>
     /// <returns></returns>
-    public int GetHP()
+    public int GetHP
     {
-        return nowHP;
+        get
+        {
+            return nowHP;
+        }
     }
 
     /// <summary>
@@ -149,9 +160,12 @@ public class PlayerScript : MonoBehaviour
         ChangeHP();
     }
 
-    public int GetMP()
+    public int GetMP
     {
-        return nowMP;
+        get
+        {
+            return nowMP;
+        }
     }
 
     /// <summary>

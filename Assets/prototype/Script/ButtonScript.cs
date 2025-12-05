@@ -11,7 +11,6 @@ public class ButtonScript : MonoBehaviour
 
     [SerializeField] private Canvas pauseCanvas;
     [SerializeField] private Canvas configCanvas;
-    [SerializeField] private CriWare.Assets.CriAtomCueReference CueRefarence;
     [SerializeField] private Controller ctrl;
     private string sceneName;
 
@@ -68,6 +67,6 @@ public class ButtonScript : MonoBehaviour
     // 音
     private void UIClick()
     {
-        ADXSoundManager.Instance.PlaySound("UI", CueRefarence.AcbAsset.Handle, 000, null, false);
+        ADXSoundManager.Instance.PlaySound(E_Sounds.SE_UI);
     }
 }

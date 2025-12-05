@@ -51,8 +51,6 @@ public class Controller : MonoBehaviour
 
     //音関係
     [Header("Sound")]
-    [SerializeField] private CriWare.Assets.CriAtomCueReference cueReference_SE;
-    [SerializeField] private CriWare.Assets.CriAtomCueReference cueRefernce_BGM;
     [System.NonSerialized] private bool bgm = false;
     [System.NonSerialized] private string bgm_Name = "PlayBGM";
 
@@ -77,13 +75,6 @@ public class Controller : MonoBehaviour
         containerBottomLeftPos = new Vector2(-11, -10);
         ADXSoundManager.Instance.GameValue(000, playerScript.hp_Percent);
 
-        if (cueRefernce_BGM.AcbAsset.Status == CriAtomExAcbLoader.Status.Complete) return;
-
-        if (cueRefernce_BGM.AcbAsset.Status != CriAtomExAcbLoader.Status.Loading)
-        {
-            cueRefernce_BGM.AcbAsset.LoadImmediate();
-        }
-
         puzzleLineCanvas.positionCount = 0;
         puzzleLineCanvas.numCapVertices = 100;
         puzzleLineCanvas.numCornerVertices = 100;
@@ -94,9 +85,9 @@ public class Controller : MonoBehaviour
     void Update()
     {
         //BGM開始処理
-        if (cueRefernce_BGM.AcbAsset.Status == CriAtomExAcbLoader.Status.Complete && game == false && bgm == false)
+        if (ADXSoundManager.Instance.IsSoundReady(E_Sounds.BGM_InGame) && game == false && bgm == false)
         {
-            ADXSoundManager.Instance.PlaySound(bgm_Name, cueRefernce_BGM.AcbAsset.Handle, 000, null, false);
+            ADXSoundManager.Instance.PlaySound(E_Sounds.BGM_InGame);
             game = true;
             bgm = true;
             loadingCanvas.enabled = false;
@@ -119,7 +110,7 @@ public class Controller : MonoBehaviour
             popText.enabled = false;
             manaPlusCount = 0;
             curePlusCount = 0;
-            nowPLAttack = playerScript.playerAttackPT;      //プレイヤー攻撃力の初期化
+            nowPLAttack = playerScript.GetPLAttackPT;      //プレイヤー攻撃力の初期化
         }
 
         //LimitArea内にA.Limが入った時
@@ -132,7 +123,7 @@ public class Controller : MonoBehaviour
         }
 
         //死んだ時の処理
-        if (playerScript.GetHP() <= 0)
+        if (playerScript.GetHP <= 0)
         {
             //PLScript.hp_Percent = 1;
             game = false;
@@ -172,7 +163,7 @@ public class Controller : MonoBehaviour
 
         if (tag == "Enemy" || tag == "Sword" || tag == "Mana" || tag == "Cure")
         {
-            nowPLAttack = playerScript.playerAttackPT;
+            nowPLAttack = playerScript.GetPLAttackPT;
             playerScript.Revengeing(nowPLAttack);
             GameObject thisPuz = hit2D.collider.gameObject;
             puzzleList.Add(thisPuz);
@@ -187,7 +178,7 @@ public class Controller : MonoBehaviour
             popText.enabled = true;
             popText.color = Color.red;
             popText.text = nowPLAttack + " Dam";
-            ADXSoundManager.Instance.PlaySound("Enem", cueReference_SE.AcbAsset.Handle, 002, null, false);
+            ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Enemy);
         }
         else if (tag == "Sword")
         {
@@ -195,7 +186,7 @@ public class Controller : MonoBehaviour
             popText.enabled = true;
             popText.color = Color.red;
             popText.text = nowPLAttack + " Dam";
-            ADXSoundManager.Instance.PlaySound("sword", cueReference_SE.AcbAsset.Handle, 005, null, false);
+            ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Sword);
         }
         else if (tag == "Mana")
         {
@@ -203,7 +194,7 @@ public class Controller : MonoBehaviour
             popText.enabled = true;
             popText.color = Color.cyan;
             popText.text = manaPlusCount + " +MP";
-            ADXSoundManager.Instance.PlaySound("mana", cueReference_SE.AcbAsset.Handle, 003, null, false);
+            ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Mana);
         }
         else if (tag == "Cure")
         {
@@ -211,7 +202,7 @@ public class Controller : MonoBehaviour
             popText.enabled = true;
             popText.color = Color.green;
             popText.text = curePlusCount + " +HP";
-            ADXSoundManager.Instance.PlaySound("cure", cueReference_SE.AcbAsset.Handle, 004, null, false);
+            ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Cure);
         }
 
     }
@@ -247,24 +238,24 @@ public class Controller : MonoBehaviour
             {
                 manaPlusCount++;
                 popText.text = manaPlusCount + " +MP";
-                ADXSoundManager.Instance.PlaySound("mana", cueReference_SE.AcbAsset.Handle, 003, null, false);
+                ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Mana);
             }
             else if (tag == "Cure")
             {
                 curePlusCount++;
                 popText.text = curePlusCount + " +HP";
-                ADXSoundManager.Instance.PlaySound("cure", cueReference_SE.AcbAsset.Handle, 004, null, false);
+                ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Cure);
             }
             else if (tag == "Sword")
             {
                 nowPLAttack++;
                 popText.text = nowPLAttack + " Dam";
-                ADXSoundManager.Instance.PlaySound("sword", cueReference_SE.AcbAsset.Handle, 005, null, false);
+                ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Sword);
             }
             else if (tag == "Enemy")
             {
                 popText.text = nowPLAttack + " Dam";
-                ADXSoundManager.Instance.PlaySound("Enem", cueReference_SE.AcbAsset.Handle, 002, null, false);
+                ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Enemy);
             }
             AddNewLinePos(nowPuzzle.transform);
         }
@@ -280,7 +271,7 @@ public class Controller : MonoBehaviour
                 PuzColor.a = 0.5f;
                 thisPuz.GetComponent<SpriteRenderer>().color = PuzColor;
                 puzzleListObj = thisPuz;
-                ADXSoundManager.Instance.PlaySound("Enem", cueReference_SE.AcbAsset.Handle, 002, null, false);
+                ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Enemy);
 
                 AddNewLinePos(thisPuz.transform);
             }
@@ -299,7 +290,7 @@ public class Controller : MonoBehaviour
                 puzzleListObj = thisPuz;
                 nowPLAttack++;
                 popText.text = nowPLAttack + " Dam";
-                ADXSoundManager.Instance.PlaySound("sword", cueReference_SE.AcbAsset.Handle, 005, null, false);
+                ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Sword);
 
                 AddNewLinePos(thisPuz.transform);
             }

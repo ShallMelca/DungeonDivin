@@ -8,7 +8,6 @@ public class ConfigScript : MonoBehaviour
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private Slider seSlider;
     [SerializeField] private Canvas configCanvas;
-    [SerializeField] private CriWare.Assets.CriAtomCueReference CueRefarence;
 
     private void Awake()
     {
@@ -30,7 +29,7 @@ public class ConfigScript : MonoBehaviour
 
     public void CloseConfig()
     {
-        ADXSoundManager.Instance.PlaySound("UI", CueRefarence.AcbAsset.Handle, 000, null, false);
+        ADXSoundManager.Instance.PlaySound(E_Sounds.SE_UI);
         configCanvas.enabled = false;
     }
 }

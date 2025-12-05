@@ -1,30 +1,47 @@
-﻿using System;
+﻿using CriWare;
+using CriWare.Assets;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
-
-using CriWare;
 using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.UI;
+using static CriWare.Assets.CriAtomAssetsLoader;
+
+class CueData
+{
+    public CriAtomExAcb AcbHandle;
+    public int CueID;
+
+    public CueData(CriAtomExAcb acbHandle, int cueID)
+    {
+        AcbHandle = acbHandle;
+        CueID = cueID;
+    }
+}
 
 public class ADXSoundManager: IDisposable
 {
-    // ExPlayerを管理する変数
+    // ExPlayerを管理する変数.
     private Dictionary<string, MyExPlayer> _exPlayers;
     private CriAtomEx3dListener _ex3dListener;    // ExListener
     private Transform _transform;
 
+    private Dictionary<E_Sounds, CueData> _cueMap = new Dictionary<E_Sounds, CueData>();
+    private Dictionary<E_Sounds, string> _exPlMap = new Dictionary<E_Sounds, string>();
+
     // ========================================================================================
-    // ADXSoundManagerをシングルトンとするための記述
+    // ADXSoundManagerをシングルトンとするための記述.
 
     private static ADXSoundManager _instance;
 
-    // ADXSoundManager.Instanceという記述で、どこからでもADXSoundManagerにアクセス可能
+    // ADXSoundManager.Instanceという記述で、どこからでもADXSoundManagerにアクセス可能.
     public static ADXSoundManager Instance
     {
         get
         {
             if (_instance == null)
             {
+                Debug.Log("ADX Load");
                 _instance = new ADXSoundManager();
             }
             return _instance;
@@ -47,17 +64,37 @@ public class ADXSoundManager: IDisposable
     // ADXSoundManagerのシングルトンの記述はここまで
     // ========================================================================================
 
-    // リソースの破棄
+    public void SetCueReference(CueSheetsManager asset)
+    {
+        Debug.Log($"SetCueReference");
+        foreach(var entry in asset.soundDatas.Entries)
+        {
+            if (entry.AcbReference.AcbAsset == null) continue;
+
+            CriAtomExAcb handle = entry.AcbReference.AcbAsset.Handle;
+
+            int cueId = entry.AcbReference.CueId;
+
+            if (cueId == -1) continue;
+
+            _cueMap[entry.Key] = new CueData(handle, cueId);
+            _exPlMap[entry.Key] = entry.PlayerKey;
+        }
+        Instance.SetCategoryVolume("BGM", 0.5f);
+        Instance.SetCategoryVolume("SE", 0.5f);
+    }
+
+    // リソースの破棄.
     public void Dispose()
     {
-        // すべてのexPlayerを破棄
+        // すべてのexPlayerを破棄.
         foreach (var exPlayer in _exPlayers.Values)
         {
             exPlayer.Dispose();
         }
         _exPlayers.Clear();
 
-        // Ex3dListenerの破棄
+        // Ex3dListenerの破棄.
         _ex3dListener.Dispose();
 
         GC.SuppressFinalize(this);
@@ -92,7 +129,20 @@ public class ADXSoundManager: IDisposable
         else { return null; }
     }
 
-    //キューの名前から
+    public bool IsSoundReady(E_Sounds enumSound)
+    {
+        return _cueMap.ContainsKey(enumSound);
+    }
+
+    public void PlaySound(E_Sounds enumSound)
+    {
+        CueData cueData = _cueMap[enumSound];
+        MyExPlayer exPlayer = GetOrCreateExPlayer(_exPlMap[enumSound]);
+        exPlayer.SetTransform(null);
+        exPlayer.Play(cueData.AcbHandle, cueData.CueID, false);
+    }
+
+    //キューの名前から.
     public void PlaySound(string key, CriAtomExAcb cueSheet, string cueName, Transform transform, bool is3D)
     {
         MyExPlayer exPlayer = GetOrCreateExPlayer(key);
@@ -100,7 +150,7 @@ public class ADXSoundManager: IDisposable
         exPlayer.Play(cueSheet, cueName, is3D);
     }
 
-    //キューIDから
+    //キューIDから.
     public void PlaySound(string key, CriAtomExAcb cueSheet, int cueId, Transform transform, bool is3D)
     {
         MyExPlayer exPlayer = GetOrCreateExPlayer(key);
@@ -136,7 +186,7 @@ public class ADXSoundManager: IDisposable
     #region 3DPositioning
 
     // exPlayerと紐づいているex3dSourceのポジションをアップデートする関数
-    // 例えばGameObejct側のUpdate()でこのADXSoundManager.Instance.UpdateSoundPosition()という記述で更新する
+    // 例えばGameObejct側のUpdate()でこのADXSoundManager.Instance.UpdateSoundPosition()という記述で更新する.
     public void UpdateSoundPosition(string key)
     {
         if (_exPlayers.TryGetValue(key, out MyExPlayer exPlayer))
@@ -151,7 +201,7 @@ public class ADXSoundManager: IDisposable
         _transform = transform;
     }
 
-    // 紐づいているGameObjectのUpdate()でこのポジションの更新を呼ぶ
+    // 紐づいているGameObjectのUpdate()でこのポジションの更新を呼ぶ.
     public void UpdateListenerPosition()
     {
         if (_transform != null)
@@ -196,10 +246,10 @@ public class ADXSoundManager: IDisposable
         private CriAtomExPlayer _exPlayer;
         private CriAtomEx3dSource _ex3dSource;
 
-        // 音源となるGameObjectの座標
+        // 音源となるGameObjectの座標.
         private Transform _transform;
 
-        // コンストラクタ. UnityでいうAwake()やStart()と近い、初期化処理
+        // コンストラクタ. UnityでいうAwake()やStart()と近い、初期化処理.
         public MyExPlayer()
         {
             _exPlayer = new CriAtomExPlayer();

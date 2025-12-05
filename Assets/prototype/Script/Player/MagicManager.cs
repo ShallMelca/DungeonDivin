@@ -17,7 +17,6 @@ public class MagicManager : MonoBehaviour
     private Color magicColor;
     private Color disapperColor;
 
-    [SerializeField] CriWare.Assets.CriAtomCueReference CueRefarence;
 
     void Awake()
     {
@@ -29,7 +28,7 @@ public class MagicManager : MonoBehaviour
 
     void Update()
     {
-        if(plScript.GetMP() >= 20)
+        if(plScript.GetMP >= 20)
         {
             changeText.color = magicColor;
         }
@@ -41,7 +40,7 @@ public class MagicManager : MonoBehaviour
 
     public void Magic()
     {
-        if (plScript.GetMP() < 20) return;
+        if (plScript.GetMP < 20) return;
 
         destroyBool = true;
         plScript.MPGensyo(20);
@@ -50,7 +49,7 @@ public class MagicManager : MonoBehaviour
             item.death = true;
         }
         Invoke(nameof(FalseDestroyBool), 0.15f);
-        ADXSoundManager.Instance.PlaySound("Magic", CueRefarence.AcbAsset.Handle, 007, null, false);
+        ADXSoundManager.Instance.PlaySound(E_Sounds.SE_Magic);
     }
 
     void FalseDestroyBool()

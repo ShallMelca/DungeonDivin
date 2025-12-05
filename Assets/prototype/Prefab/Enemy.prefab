@@ -516,29 +516,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe5dfa913fd0a1499db2afb0a7c828b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyLevel: 1
-  HP_UI: {fileID: 1634432301154530591}
-  EnemUI: {fileID: 822093732839307491}
-  Attack_UI: {fileID: 6349112755190467865}
-  Level_HPAttRecast:
-  - {x: 5, y: 1, z: 2}
-  - {x: 5, y: 1, z: 1}
-  - {x: 8, y: 1, z: 2}
-  - {x: 8, y: 2, z: 1}
-  - {x: 11, y: 2, z: 2}
-  - {x: 11, y: 2, z: 1}
-  - {x: 14, y: 3, z: 2}
-  - {x: 14, y: 3, z: 1}
-  - {x: 18, y: 3, z: 1}
-  - {x: 18, y: 4, z: 1}
-  - {x: 23, y: 4, z: 1}
-  - {x: 23, y: 4, z: 1}
-  - {x: 29, y: 5, z: 1}
-  - {x: 29, y: 5, z: 1}
-  - {x: 35, y: 5, z: 1}
-  CueRefarence:
-    acbAsset: {fileID: -6750239444755058063, guid: 911397842bd2520418e0a7059ed89a37, type: 3}
-    cueId: 6
+  enemyLevel: 1
+  hp_UI: {fileID: 1634432301154530591}
+  enemUI: {fileID: 822093732839307491}
+  attack_UI: {fileID: 6349112755190467865}
+  level_HPAttRecast:
+  - {x: 5, y: 3, z: 0}
+  - {x: 5, y: 3, z: 0}
+  - {x: 5, y: 3, z: 0}
+  - {x: 5, y: 3, z: 0}
+  - {x: 5, y: 3, z: 0}
 --- !u!95 &-8436283772332071627
 Animator:
   serializedVersion: 5
