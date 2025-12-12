@@ -164,7 +164,7 @@ public class Controller : MonoBehaviour
         if (tag == "Enemy" || tag == "Sword" || tag == "Mana" || tag == "Cure")
         {
             nowPLAttack = playerScript.GetPLAttackPT;
-            playerScript.Revengeing(nowPLAttack);
+            //playerScript.Revengeing(nowPLAttack);
             GameObject thisPuz = hit2D.collider.gameObject;
             puzzleList.Add(thisPuz);
             Color PuzColor = thisPuz.GetComponent<SpriteRenderer>().color;

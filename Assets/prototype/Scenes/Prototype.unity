@@ -4577,6 +4577,7 @@ GameObject:
   - component: {fileID: 826466578}
   - component: {fileID: 826466579}
   - component: {fileID: 826466580}
+  - component: {fileID: 826466581}
   m_Layer: 0
   m_Name: ButtonController
   m_TagString: Untagged
@@ -4630,6 +4631,25 @@ MonoBehaviour:
   enable: {fileID: 1127919831}
   destroyBool: 0
   changeText: {fileID: 175445184}
+--- !u!114 &826466581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826466577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56ee27282a5b184e91a9fec5bcd6cb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityButtons:
+  - title: {fileID: 133466832}
+    description: {fileID: 1201526163}
+    image: {fileID: 0}
+  - title: {fileID: 760202396}
+    description: {fileID: 1430790507}
+    image: {fileID: 0}
 --- !u!1 &848825851
 GameObject:
   m_ObjectHideFlags: 0
@@ -6025,7 +6045,6 @@ GameObject:
   - component: {fileID: 1083633953}
   - component: {fileID: 1083633952}
   - component: {fileID: 1083633951}
-  - component: {fileID: 1083633954}
   m_Layer: 5
   m_Name: ChooseAbility.2
   m_TagString: Untagged
@@ -6099,14 +6118,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1083633954}
+      - m_Target: {fileID: 826466581}
         m_TargetAssemblyTypeName: AbilityButtonScript, Assembly-CSharp
-        m_MethodName: PushedThis
-        m_Mode: 1
+        m_MethodName: AbilityButtonPushed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6149,27 +6168,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083633949}
   m_CullTransparentMesh: 1
---- !u!114 &1083633954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1083633949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e56ee27282a5b184e91a9fec5bcd6cb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: {fileID: 760202396}
-  description: {fileID: 1430790507}
-  abilitySprite: {fileID: 787994900}
-  abilityDescriptions: []
-  abilitySprites: []
-  thisButtonRole: 
-  abilityMAX_Text: 
-  abilityMAX_Sprite: {fileID: -8572855146616864485, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  PLScript: {fileID: 1895228024}
 --- !u!1 &1119683173
 GameObject:
   m_ObjectHideFlags: 0
@@ -10796,6 +10794,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1895228023}
   - component: {fileID: 1895228024}
+  - component: {fileID: 1895228025}
   m_Layer: 0
   m_Name: PLayerController
   m_TagString: Untagged
@@ -10849,8 +10848,8 @@ MonoBehaviour:
   enab: {fileID: 1127919831}
   abilityChoiceCanvas: {fileID: 848825854}
   abilityButtons:
-  - {fileID: 2018030011}
-  - {fileID: 1083633954}
+  - {fileID: 0}
+  - {fileID: 0}
   abilityIcon:
   - {fileID: 323302379}
   - {fileID: 363604596}
@@ -10861,6 +10860,24 @@ MonoBehaviour:
   nowAbilities: []
   abilitieLevels: 
   choicingAbtDic: []
+--- !u!114 &1895228025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895228022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dddd338ca7593f4f824a9124cc91b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityData: {fileID: 0}
+  abilityData_AfterLevelMax: {fileID: 0}
+  ctrl: {fileID: 1341798987}
+  enab: {fileID: 1127919831}
+  mainPlayerSctipt: {fileID: 1895228024}
+  abilityButtonScript: {fileID: 0}
 --- !u!1 &1908956525
 GameObject:
   m_ObjectHideFlags: 0
@@ -11465,7 +11482,6 @@ GameObject:
   - component: {fileID: 2018030010}
   - component: {fileID: 2018030009}
   - component: {fileID: 2018030008}
-  - component: {fileID: 2018030011}
   m_Layer: 5
   m_Name: ChooseAbility.1
   m_TagString: Untagged
@@ -11539,10 +11555,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2018030011}
+      - m_Target: {fileID: 826466581}
         m_TargetAssemblyTypeName: AbilityButtonScript, Assembly-CSharp
-        m_MethodName: PushedThis
-        m_Mode: 1
+        m_MethodName: AbilityButtonPushed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11589,27 +11605,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2018030006}
   m_CullTransparentMesh: 1
---- !u!114 &2018030011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2018030006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e56ee27282a5b184e91a9fec5bcd6cb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: {fileID: 133466832}
-  description: {fileID: 1201526163}
-  abilitySprite: {fileID: 426606631}
-  abilityDescriptions: []
-  abilitySprites: []
-  thisButtonRole: 
-  abilityMAX_Text: 
-  abilityMAX_Sprite: {fileID: -574357649810062866, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
-  PLScript: {fileID: 1895228024}
 --- !u!1 &2046179109
 GameObject:
   m_ObjectHideFlags: 0

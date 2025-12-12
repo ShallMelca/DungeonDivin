@@ -30,7 +30,7 @@ public class Enable : MonoBehaviour
             count--;
             enableEnemies.Remove(Enem);
             allEnemies.Remove(Enem);
-            plScript.Vampireing();
+            //plScript.Vampireing();
 
             ctrl.score += 100;
             plScript.EXPAdd(Enem.enemyLevel);
