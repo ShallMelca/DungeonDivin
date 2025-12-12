@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d1052ef92f735428b930401b234efd, type: 3}
+  m_Name: LevelMaxAbilitiesData
+  m_EditorClassIdentifier: 
+  abilities:
+  - name: 6
+    name_str: Add Attack
+    description: "\u57FA\u790E\u653B\u6483\u529B\u304C1\u4E0A\u6607\u3059\u308B"
+    sprite: {fileID: -8572855146616864485, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
+  - name: 7
+    name_str: Add HP
+    description: "HP\u4E0A\u9650\u304C5\u4E0A\u6607\u3059\u308B"
+    sprite: {fileID: -574357649810062866, guid: d3f48a66b27ab7f40b49004aa8e6075a, type: 3}
